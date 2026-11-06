@@ -21,7 +21,7 @@ the TV's own home page (Vault/Projects/xiaomi-tv-revamp/tv-setup.html, served by
 rotation in one hidden headless Chromium by tools/capture_tv.mjs, with only the clock text (ETHAN) and the widgets'
 content changed (tools/tv-profile.js, from tools/facts.py) and extra weather (tools/wx-extra.js), then encoded by
 tools/encode_hero.py. It is about 9 MB and does not delta, so each new copy adds its full size to the repository:
-it is re-filmed at most every HERO_WEBP_EVERY_H hours (default 24), and only when the hub answers and committed
+it is re-filmed at most every HERO_WEBP_EVERY_H hours (default 168, weekly: his call, 7 Nov), and only when the hub answers and committed
 memory is under 48 GB; otherwise the published copy is kept. --capture films now; --no-capture never films.
 hero.svg is still built and published, so its old link keeps working.
 """
@@ -40,7 +40,7 @@ TV_ACTIVITY = os.path.join(os.path.expanduser("~"), "Vault", "Projects", "xiaomi
 BRANCH = "live"
 FILES = ("hero.webp", "hero.svg", "usage.json", "activity.json", "github.json")
 NOWIN = {"creationflags": subprocess.CREATE_NO_WINDOW} if os.name == "nt" else {}
-WEBP_EVERY_H = float(os.environ.get("HERO_WEBP_EVERY_H", "24"))
+WEBP_EVERY_H = float(os.environ.get("HERO_WEBP_EVERY_H", "168"))
 MAX_COMMIT_GB = 48
 
 sys.path.insert(0, HERE)
