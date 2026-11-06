@@ -1,0 +1,618 @@
+[
+ {
+  "id": "spa",
+  "name": "Spa, Eau Rouge",
+  "settings": {
+   "date": true,
+   "depth": "all",
+   "face": "tall",
+   "flip": false,
+   "ink": "#2b2f33",
+   "mat": "ghost",
+   "orient": "row",
+   "place": "center",
+   "pos": "high",
+   "size": 27,
+   "stretch": 130,
+   "tone": "dark",
+   "width": 100,
+   "wl": "col"
+  },
+  "mask": [
+   0,
+   121,
+   1024,
+   455
+  ],
+  "credit": null
+ },
+ {
+  "id": "nightcity",
+  "name": "911 above the city",
+  "settings": {
+   "date": true,
+   "depth": "all",
+   "face": "condensed",
+   "flip": false,
+   "ink": "#f4f2ee",
+   "mat": "ghost",
+   "orient": "row",
+   "place": "center",
+   "pos": "high",
+   "size": 27,
+   "stretch": 130,
+   "tone": "dark",
+   "width": 100,
+   "wl": "col"
+  },
+  "mask": [
+   0,
+   9,
+   1024,
+   567
+  ],
+  "credit": null
+ },
+ {
+  "id": "alps",
+  "name": "Alpine valley",
+  "settings": {
+   "date": true,
+   "depth": "all",
+   "face": "tall",
+   "ink": "auto",
+   "mat": "ghost",
+   "pos": "band",
+   "size": 27,
+   "stretch": 165,
+   "tone": "dark",
+   "wl": "col",
+   "flip": false,
+   "orient": "row",
+   "place": "center",
+   "width": 100
+  },
+  "mask": [
+   0,
+   172,
+   1024,
+   404
+  ],
+  "credit": null
+ },
+ {
+  "id": "plane-concorde-climb",
+  "name": "Concorde climbing out, rain",
+  "settings": {
+   "date": true,
+   "depth": "all",
+   "face": "tall",
+   "flip": false,
+   "ink": "auto",
+   "mat": "ghost",
+   "orient": "row",
+   "place": "center",
+   "pos": "high",
+   "size": 22,
+   "stretch": 130,
+   "tone": "dark",
+   "width": 100,
+   "wl": "col"
+  },
+  "mask": [
+   0,
+   264,
+   1024,
+   312
+  ],
+  "credit": null
+ },
+ {
+  "id": "ship",
+  "name": "Tall ship",
+  "settings": {
+   "date": true,
+   "depth": "all",
+   "face": "fat",
+   "flip": false,
+   "ink": "#f3e3c4",
+   "mat": "ghost",
+   "orient": "stack",
+   "place": "center",
+   "pos": "high",
+   "size": 27,
+   "stretch": 130,
+   "tone": "dark",
+   "width": 100,
+   "wl": "col"
+  },
+  "mask": [
+   0,
+   0,
+   1024,
+   576
+  ],
+  "credit": null
+ },
+ {
+  "id": "porschelake",
+  "name": "911 by the lake",
+  "settings": {
+   "date": true,
+   "depth": "all",
+   "face": "tall",
+   "ink": "#cfdff5",
+   "mat": "ghost",
+   "pos": "high",
+   "size": 27,
+   "stretch": 130,
+   "tone": "dark",
+   "wl": "col",
+   "flip": false,
+   "orient": "row",
+   "place": "center",
+   "width": 100
+  },
+  "mask": [
+   0,
+   0,
+   1024,
+   576
+  ],
+  "credit": null
+ },
+ {
+  "id": "spartan",
+  "name": "Agamemnon's helmet",
+  "settings": {
+   "face": "serif",
+   "mat": "ghost",
+   "tone": "dark",
+   "size": 27,
+   "stretch": 130,
+   "width": 140,
+   "pos": "high",
+   "place": "center",
+   "orient": "row",
+   "flip": false,
+   "depth": "all",
+   "ink": "#2b2f33",
+   "wl": "col",
+   "date": true
+  },
+  "mask": [
+   0,
+   189,
+   1024,
+   387
+  ],
+  "credit": null
+ },
+ {
+  "id": "biplane",
+  "name": "Red biplane",
+  "settings": {
+   "date": true,
+   "depth": "off",
+   "face": "serif",
+   "flip": false,
+   "ink": "#f3e3c4",
+   "mat": "ghost",
+   "orient": "row",
+   "place": "center",
+   "pos": "high",
+   "size": 27,
+   "stretch": 130,
+   "tone": "dark",
+   "width": 100,
+   "wl": "col"
+  },
+  "mask": null,
+  "credit": null
+ },
+ {
+  "id": "monaco",
+  "name": "Ferrari at Monaco",
+  "settings": {
+   "face": "tall",
+   "mat": "ghost",
+   "tone": "dark",
+   "size": 27,
+   "stretch": 130,
+   "width": 100,
+   "pos": "high",
+   "place": "center",
+   "orient": "row",
+   "flip": false,
+   "depth": "all",
+   "ink": "#d9b77a",
+   "wl": "col",
+   "date": true
+  },
+  "mask": [
+   0,
+   236,
+   1024,
+   340
+  ],
+  "credit": null
+ },
+ {
+  "id": "plane-f22-vapour",
+  "name": "F-22 vapour cone, storm",
+  "settings": {
+   "date": true,
+   "depth": "all",
+   "face": "condensed",
+   "flip": false,
+   "ink": "auto",
+   "mat": "ghost",
+   "orient": "row",
+   "place": "center",
+   "pos": "high",
+   "size": 26,
+   "stretch": 110,
+   "tone": "dark",
+   "width": 85,
+   "wl": "col"
+  },
+  "mask": [
+   584,
+   0,
+   440,
+   489
+  ],
+  "credit": null
+ },
+ {
+  "id": "snow911",
+  "name": "911 in the snow",
+  "settings": {
+   "date": true,
+   "depth": "all",
+   "face": "tall",
+   "flip": false,
+   "ink": "auto",
+   "mat": "ghost",
+   "orient": "row",
+   "place": "center",
+   "pos": "high",
+   "size": 27,
+   "stretch": 130,
+   "tone": "dark",
+   "width": 100,
+   "wl": "col"
+  },
+  "mask": [
+   0,
+   192,
+   1024,
+   384
+  ],
+  "credit": null
+ },
+ {
+  "id": "bronkhorst-skiers",
+  "name": "Skiers on white strokes",
+  "settings": {
+   "date": true,
+   "depth": "subj",
+   "face": "tall",
+   "flip": false,
+   "ink": "#2b2f33",
+   "mat": "ghost",
+   "orient": "row",
+   "place": "center",
+   "pos": "high",
+   "size": 27,
+   "stretch": 130,
+   "tone": "dark",
+   "width": 100,
+   "wl": "col"
+  },
+  "mask": [
+   255,
+   237,
+   621,
+   255
+  ],
+  "credit": "Werner Bronkhorst"
+ },
+ {
+  "id": "f1ceiling",
+  "name": "F1 car, atrium",
+  "settings": {
+   "date": true,
+   "depth": "all",
+   "face": "fat",
+   "ink": "#f3e3c4",
+   "mat": "ghost",
+   "pos": "high",
+   "size": 27,
+   "stretch": 130,
+   "tone": "dark",
+   "wl": "col",
+   "flip": false,
+   "orient": "row",
+   "place": "center",
+   "width": 100
+  },
+  "mask": [
+   0,
+   0,
+   1024,
+   530
+  ],
+  "credit": null
+ },
+ {
+  "id": "surfers",
+  "name": "Surfers on painted waves",
+  "settings": {
+   "face": "tall",
+   "mat": "ghost",
+   "tone": "dark",
+   "size": 27,
+   "stretch": 130,
+   "width": 100,
+   "pos": "high",
+   "place": "center",
+   "orient": "row",
+   "flip": false,
+   "depth": "all",
+   "ink": "#cfdff5",
+   "wl": "col",
+   "date": true
+  },
+  "mask": [
+   0,
+   0,
+   1024,
+   576
+  ],
+  "credit": null
+ },
+ {
+  "id": "planetop",
+  "name": "Jet over the sea",
+  "settings": {
+   "date": true,
+   "depth": "subj",
+   "face": "fat",
+   "flip": false,
+   "ink": "#cfdff5",
+   "mat": "ghost",
+   "orient": "row",
+   "place": "center",
+   "pos": "high",
+   "size": 27,
+   "stretch": 130,
+   "tone": "dark",
+   "width": 100,
+   "wl": "col"
+  },
+  "mask": [
+   463,
+   278,
+   111,
+   113
+  ],
+  "credit": null
+ },
+ {
+  "id": "muse911",
+  "name": "911 and figure",
+  "settings": {
+   "face": "fat",
+   "mat": "ghost",
+   "tone": "dark",
+   "size": 27,
+   "stretch": 130,
+   "width": 100,
+   "pos": "high",
+   "place": "center",
+   "orient": "row",
+   "flip": false,
+   "depth": "all",
+   "ink": "auto",
+   "wl": "col",
+   "date": true
+  },
+  "mask": [
+   0,
+   98,
+   1024,
+   478
+  ],
+  "credit": null
+ },
+ {
+  "id": "plane-typhoon-mist-oil",
+  "name": "Typhoon in the mist, oil",
+  "settings": {
+   "date": true,
+   "depth": "all",
+   "face": "tall",
+   "flip": false,
+   "ink": "#2b2f33",
+   "mat": "tint",
+   "orient": "row",
+   "place": "center",
+   "pos": "high",
+   "size": 25,
+   "stretch": 115,
+   "tone": "dark",
+   "width": 90,
+   "wl": "col"
+  },
+  "mask": [
+   0,
+   267,
+   1024,
+   309
+  ],
+  "credit": null
+ },
+ {
+  "id": "gt62",
+  "name": "No. 62 in the rain",
+  "settings": {
+   "depth": "subj",
+   "pos": "high",
+   "stretch": 115,
+   "date": true,
+   "face": "condensed",
+   "flip": false,
+   "ink": "auto",
+   "mat": "ghost",
+   "orient": "row",
+   "place": "center",
+   "size": 27,
+   "tone": "dark",
+   "width": 80,
+   "wl": "col"
+  },
+  "mask": [
+   200,
+   152,
+   537,
+   260
+  ],
+  "credit": null
+ },
+ {
+  "id": "bronkhorst-streets-s",
+  "name": "F1 roads on white, S-bend",
+  "settings": {
+   "date": true,
+   "depth": "all",
+   "face": "serif",
+   "flip": false,
+   "ink": "#f4f2ee",
+   "mat": "ghost",
+   "orient": "row",
+   "place": "center",
+   "pos": "high",
+   "size": 27,
+   "stretch": 130,
+   "tone": "dark",
+   "width": 100,
+   "wl": "col"
+  },
+  "mask": [
+   0,
+   0,
+   749,
+   576
+  ],
+  "credit": "Werner Bronkhorst"
+ },
+ {
+  "id": "plane-airport-impasto",
+  "name": "Airport in white impasto",
+  "settings": {
+   "date": true,
+   "depth": "all",
+   "face": "condensed",
+   "flip": false,
+   "ink": "#f4f2ee",
+   "mat": "tint",
+   "orient": "row",
+   "place": "center",
+   "pos": "high",
+   "size": 27,
+   "stretch": 130,
+   "tone": "dark",
+   "width": 100,
+   "wl": "col"
+  },
+  "mask": [
+   73,
+   0,
+   951,
+   576
+  ],
+  "credit": null
+ },
+ {
+  "id": "wave",
+  "name": "Helicopter and wave",
+  "settings": {
+   "date": true,
+   "depth": "on",
+   "face": "fat",
+   "flip": false,
+   "ink": "auto",
+   "mat": "ghost",
+   "orient": "row",
+   "place": "center",
+   "pos": "high",
+   "size": 27,
+   "stretch": 130,
+   "tone": "dark",
+   "width": 100,
+   "wl": "col"
+  },
+  "mask": [
+   0,
+   53,
+   1024,
+   523
+  ],
+  "credit": null
+ },
+ {
+  "id": "plane-f22-vapour-oil",
+  "name": "F-22 vapour cone, on canvas",
+  "settings": {
+   "date": true,
+   "depth": "all",
+   "face": "condensed",
+   "flip": false,
+   "ink": "auto",
+   "mat": "ghost",
+   "orient": "row",
+   "place": "center",
+   "pos": "high",
+   "size": 25,
+   "stretch": 105,
+   "tone": "dark",
+   "width": 85,
+   "wl": "col"
+  },
+  "mask": [
+   0,
+   83,
+   1024,
+   493
+  ],
+  "credit": null
+ },
+ {
+  "id": "bronkhorst-snowboard",
+  "name": "Snowboarder, cobalt sky",
+  "settings": {
+   "date": true,
+   "depth": "all",
+   "face": "tall",
+   "flip": false,
+   "ink": "auto",
+   "mat": "ghost",
+   "orient": "row",
+   "place": "center",
+   "pos": "high",
+   "size": 27,
+   "stretch": 130,
+   "tone": "dark",
+   "width": 100,
+   "wl": "col"
+  },
+  "mask": [
+   0,
+   0,
+   1024,
+   576
+  ],
+  "credit": "Werner Bronkhorst"
+ }
+]

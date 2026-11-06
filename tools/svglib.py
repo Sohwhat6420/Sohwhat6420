@@ -43,6 +43,8 @@ class Font:
         self.hmtx = self.tt["hmtx"]
         os2 = self.tt["OS/2"]
         self.cap = getattr(os2, "sCapHeight", 0) or int(self.upm * 0.7)
+        hh = self.tt["hhea"]
+        self.asc, self.desc = hh.ascent, -hh.descent      # what Chrome lays a line out with (checked against the TV page)
         self._paths = {}
         self._pair = {}
         self._class = []
@@ -113,6 +115,17 @@ class Font:
     def width(self, s, size, tracking=0.0):
         return self.layout(s, size, tracking)[1]
 
+    def baseline(self, top, size, lh):
+        """The baseline of a CSS line box starting at `top`, `lh` px tall, in this font at `size` px (half-leading split)."""
+        a, d = self.asc * size / self.upm, self.desc * size / self.upm
+        return top + (lh - (a + d)) / 2 + a
+
+    def bounds(self, g):
+        from fontTools.pens.boundsPen import BoundsPen
+        bp = BoundsPen(self.gs)
+        self.gs[g].draw(bp)
+        return bp.bounds
+
 
 FONTS = {}
 FILES = {
@@ -121,6 +134,16 @@ FILES = {
     "sansb": "InstrumentSans-Bold.ttf",
     "mono": "JetBrainsMono-Regular.ttf",
     "monob": "JetBrainsMono-Bold.ttf",
+    # the TV's clock faces (tv-setup.html .f-*), at the weights it draws them
+    "tall": "Antonio-Light.ttf",                       # .f-tall      Antonio 300
+    "condensed": "BigShouldersDisplay-ExtraBold.ttf",  # .f-condensed Big Shoulders Display 800
+    "serif": "InstrumentSerif-Regular.ttf",            # .f-serif     Instrument Serif 400
+    "fat": "AbrilFatface-Regular.ttf",                 # .f-fat       Abril Fatface 400
+    # the TV's interface face (--ui: Hanken Grotesk), at the four weights its widgets use
+    "h4": "HankenGrotesk-Regular.ttf",
+    "h5": "HankenGrotesk-Medium.ttf",
+    "h6": "HankenGrotesk-SemiBold.ttf",
+    "h7": "HankenGrotesk-Bold.ttf",
 }
 
 
