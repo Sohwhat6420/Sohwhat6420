@@ -33,6 +33,7 @@ const ONLY = opt("plates", ""), STEPS = +opt("steps", 999), STILLS_ONLY = args.i
 const EXE = fs.readdirSync("C:/Users/ethan/AppData/Local/ms-playwright").filter(d => /^chromium-\d+$/.test(d)).sort().reverse()
   .map(d => `C:/Users/ethan/AppData/Local/ms-playwright/${d}/chrome-win64/chrome.exe`).find(f => fs.existsSync(f));
 const NAME = "ETHAN";
+const KEEP_DEPTH = args.includes("--keep-depth");   // comparison renders: never fall back to depth off
 /* one condition per painting (TV = the TV's own layer, + = wx-extra), chosen to suit each one */
 const WX = {
   spartan: ["moon"], surfers: ["sun", { sx: .86, sy: -.1 }], monaco: ["sun", { sx: .1, sy: -.1 }], gt62: ["clouds"],
@@ -62,7 +63,7 @@ await page.addStyleTag({ content: fs.readFileSync(path.join(HERE, "wx-extra.css"
 await page.addScriptTag({ content: fs.readFileSync(path.join(HERE, "wx-extra.js"), "utf8") });
 await page.addScriptTag({ content: fs.readFileSync(path.join(HERE, "tv-profile.js"), "utf8") });
 
-const setup = await page.evaluate(async ({ NAME, DATA, ONLY }) => {
+const setup = await page.evaluate(async ({ NAME, DATA, ONLY, KEEP_DEPTH }) => {
   // a still home screen: no night, no AOD or dim, no rotation timer, no burn-in orbit, no music card, no hub restyle
   nightBySchedule = () => {}; view.night = false; stage.classList.remove("night");
   armAod = () => {}; aodFromIdle = () => {}; clearTimeout(amb.timer); if (amb.on) setAmb(false); if (dim.on) setDim(false);
@@ -107,7 +108,7 @@ const setup = await page.evaluate(async ({ NAME, DATA, ONLY }) => {
         return n ? t / n : 0;
       }));
       if (cover <= .6) break;
-      if (s.size <= sizeA * .8 + 1e-6) { s.depth = "off"; depthOff = true; s.size = sizeA; styleDeck(dk); setText(dk, NAME); break; }
+      if (s.size <= sizeA * .8 + 1e-6) { if (KEEP_DEPTH) break; s.depth = "off"; depthOff = true; s.size = sizeA; styleDeck(dk); setText(dk, NAME); break; }
       s.size = Math.floor(s.size * 96) / 100; styleDeck(dk); setText(dk, NAME);
     }
     fit[id] = { face: s.face, size: size0, fitted: s.size, width: width0, widthFitted: s.width, span: Math.round(w0), after: Math.round(span()), room: Math.round(2 * half), cover: +cover.toFixed(2), depthOff };
@@ -117,7 +118,7 @@ const setup = await page.evaluate(async ({ NAME, DATA, ONLY }) => {
   styleDeck(curDk); setText(curDk, NAME); await placeClock(curDk); measureDeck(curDk);
   fitTv();
   return { ids, want, fit, start: PLATES[view.i].id };
-}, { NAME, DATA, ONLY });
+}, { NAME, DATA, ONLY, KEEP_DEPTH });
 console.log("plates", setup.ids.length, setup.ids.join(" "));
 for (const [id, f] of Object.entries(setup.fit)) console.log(`  ${id.padEnd(24)} ${f.face.padEnd(10)} size ${f.size} -> ${f.fitted}, width ${f.width} -> ${f.widthFitted}  ETHAN ${f.span}px -> ${f.after}px of ${f.room}, worst letter ${Math.round(f.cover * 100)}% covered${f.depthOff ? ", DEPTH OFF" : ""}`);
 
