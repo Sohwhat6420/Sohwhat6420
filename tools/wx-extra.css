@@ -1,0 +1,46 @@
+/* Extra weather for the TV home screen (tv-setup.html), written to sit beside its own weather layer (.wxl: drizzle,
+   rain, heavy, snow, mist) and look like it: one full-screen layer between the painting and the clock, so the depth
+   cut-out stays in front; transform and opacity animations only, quantised with steps() to the same 24 fps grid
+   (WX_FPS), so the compositor draws a new picture on the same shared ticks. Kinds: sun, moon, clouds, lightning.
+   Used by tools/wx-extra.js (the README banner's capture today; the TV can adopt both files as they are). */
+.wxx { position: absolute; inset: 0; pointer-events: none; overflow: hidden; contain: strict; }
+.wxx[hidden] { display: none; }
+.wxx > * { position: absolute; }
+
+/* sun: a warm bloom and soft god-rays from the top right, a slow shimmer */
+.wxx .sun-bloom { inset: -20% -20% auto auto; width: 95%; height: 120%; mix-blend-mode: screen;
+  background: radial-gradient(closest-side at 78% 18%, rgba(255, 228, 170, .42), rgba(255, 206, 140, .16) 45%, rgba(255, 200, 130, 0) 100%); }
+.wxx .sun-rays { width: 260vmax; height: 260vmax; left: calc(var(--sx, 90%) - 130vmax); top: calc(var(--sy, -8%) - 130vmax);
+  mix-blend-mode: screen; filter: blur(14px); transform-origin: 50% 50%;
+  background: repeating-conic-gradient(from 0deg, rgba(255, 236, 196, .0) 0deg 3.2deg, rgba(255, 236, 196, .16) 4.4deg, rgba(255, 236, 196, 0) 5.6deg 9deg);
+  -webkit-mask: radial-gradient(circle at 50% 50%, #000 0, rgba(0, 0, 0, .7) 12%, rgba(0, 0, 0, .25) 24%, transparent 36%);
+          mask: radial-gradient(circle at 50% 50%, #000 0, rgba(0, 0, 0, .7) 12%, rgba(0, 0, 0, .25) 24%, transparent 36%); }
+.wxx .sun-rays.b { background: repeating-conic-gradient(from 2.2deg, rgba(255, 240, 210, 0) 0deg 5deg, rgba(255, 240, 210, .12) 6.5deg, rgba(255, 240, 210, 0) 8deg 13deg); }
+@keyframes wxx-sway { from { transform: rotate(-1.6deg); } to { transform: rotate(1.6deg); } }
+@keyframes wxx-breathe { from { opacity: .62; } to { opacity: 1; } }
+@keyframes wxx-shimmer { 0% { opacity: .35; } 35% { opacity: .9; } 60% { opacity: .55; } 100% { opacity: .95; } }
+
+/* moon: a cool glow high on the left and faint, twinkling stars in the upper sky */
+.wxx .moon-glow { inset: -25% auto auto -15%; width: 80%; height: 110%; mix-blend-mode: screen;
+  background: radial-gradient(closest-side at 32% 26%, rgba(200, 218, 255, .30), rgba(160, 188, 245, .12) 42%, rgba(150, 180, 240, 0) 100%); }
+.wxx .moon-veil { inset: 0; mix-blend-mode: soft-light; background: linear-gradient(180deg, rgba(150, 175, 235, .22), rgba(150, 175, 235, 0) 70%); }
+.wxx .star { width: var(--s); height: var(--s); border-radius: 50%; opacity: var(--o);
+  background: radial-gradient(circle, rgba(236, 242, 255, 1) 0 30%, rgba(236, 242, 255, 0) 70%); }
+@keyframes wxx-twinkle { 0% { opacity: calc(var(--o) * .25); } 50% { opacity: var(--o); } 100% { opacity: calc(var(--o) * .4); } }
+
+/* clouds: soft banks drifting across the upper sky */
+.wxx .cloud { left: 0; width: 200%; background-repeat: repeat-x; background-size: 50% 100%; }
+@keyframes wxx-drift { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-50%, 0, 0); } }
+@keyframes wxx-drift-r { from { transform: translate3d(-50%, 0, 0); } to { transform: translate3d(0, 0, 0); } }
+
+/* lightning: a sky flash with a distant bolt, twice a cycle (pair it with the TV's own heavy rain) */
+.wxx .flash { inset: 0; mix-blend-mode: screen; opacity: 0;
+  background: radial-gradient(120% 90% at var(--lx, 70%) -10%, rgba(214, 226, 255, .75), rgba(180, 200, 255, .28) 40%, rgba(170, 190, 255, 0) 75%); }
+.wxx .bolt { left: var(--lx, 70%); top: -2%; width: 14%; height: 52%; opacity: 0; translate: -50% 0; overflow: visible;
+  filter: drop-shadow(0 0 6px rgba(210, 225, 255, .95)) drop-shadow(0 0 18px rgba(170, 195, 255, .7)); }
+.wxx .bolt path { fill: none; stroke: rgba(246, 249, 255, .95); stroke-width: 2.2; stroke-linejoin: bevel; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.wxx .bolt path.f { stroke-width: 1.1; stroke: rgba(230, 238, 255, .7); }
+@keyframes wxx-flash { 0%, 58% { opacity: 0; } 59% { opacity: .95; } 60.5% { opacity: .15; } 62% { opacity: 1; } 66% { opacity: .2; } 72%, 100% { opacity: 0; } }
+@keyframes wxx-bolt { 0%, 58.5% { opacity: 0; } 59% { opacity: 1; } 60.5% { opacity: 0; } 62% { opacity: 1; } 64.5% { opacity: .4; } 67%, 100% { opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) { .wxx { display: none !important; } }
