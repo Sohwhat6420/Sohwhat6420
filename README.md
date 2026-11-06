@@ -5,9 +5,9 @@
   <img alt="Now focused on: multi-agent orchestration, applied AI, AI security, MCP agents that drive Android, Claude Code harness engineering." src="assets/typing-light.svg" width="100%">
 </picture>
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="assets/about-helmet-dark.svg"><img src="assets/about-helmet-light.svg" width="32.6%" alt="A gold line drawing of a crested Spartan helmet draws itself, then catches a sweep of light."></picture>
-<picture><source media="(prefers-color-scheme: dark)" srcset="assets/about-tokens-dark.svg"><img src="assets/about-tokens-light.svg" width="32.6%" alt="Odometer: 50.4 billion Claude Code tokens, measured to 6 Nov 2026."></picture>
-<picture><source media="(prefers-color-scheme: dark)" srcset="assets/about-bb-tkd-dark.svg"><img src="assets/about-bb-tkd-light.svg" width="32.6%" alt="A Boys' Brigade chevron and a Taekwondo black-belt knot, drawn in gold."></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/about-helmet-dark.svg"><img src="assets/about-helmet-light.svg" width="32%" alt="A gold line drawing of a crested Spartan helmet draws itself, then catches a sweep of light."></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/about-tokens-dark.svg"><img src="assets/about-tokens-light.svg" width="32%" alt="Odometer: 50.4 billion Claude Code tokens, measured to 6 Nov 2026."></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/about-bb-tkd-dark.svg"><img src="assets/about-bb-tkd-light.svg" width="32%" alt="A Boys' Brigade chevron and a Taekwondo black-belt knot, drawn in gold."></picture>
 
 **Applied AI and agent engineering, with a security edge.** Year 2, Cybersecurity and Digital Forensics, Singapore Polytechnic.
 Seeking a 44-week internship in applied AI and AI security, from 12 April 2027.
