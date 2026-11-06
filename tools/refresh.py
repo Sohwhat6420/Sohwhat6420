@@ -36,11 +36,12 @@ sys.path.insert(0, HERE)
 
 
 def git(*args, env=None, inp=None):
-    r = subprocess.run(["git", "-C", ROOT] + list(args), capture_output=True, text=inp is None or isinstance(inp, str),
-                       input=inp, env=env, **NOWIN)
+    # bytes in and out: text mode on Windows would turn mktree's "\n" into "\r\n" and put a CR in every file name
+    r = subprocess.run(["git", "-C", ROOT] + list(args), capture_output=True,
+                       input=inp.encode("utf-8") if isinstance(inp, str) else inp, env=env, **NOWIN)
     if r.returncode:
-        raise RuntimeError("git %s: %s" % (" ".join(args[:2]), (r.stderr or "").strip()[:300]))
-    return r.stdout
+        raise RuntimeError("git %s: %s" % (" ".join(args[:2]), r.stderr.decode("utf-8", "replace").strip()[:300]))
+    return r.stdout.decode("utf-8")
 
 
 def hub(path):
