@@ -1,11 +1,10 @@
-"""Reads Ethan's public GitHub numbers from the GraphQL API and redraws the GitHub widget.
+"""Reads Ethan's public GitHub numbers from the GraphQL API (for the hero's GitHub cards).
 
-    python tools/gh_stats.py [login]
+    python tools/gh_stats.py [login] [--out data/github.json]
 
-The token comes from GITHUB_TOKEN (the daily Action, .github/workflows/github-stats.yml) or, on a laptop, from
-`gh auth token`. Only public data is read: the contribution calendar (the number his profile shows, which counts
-private contributions as plain numbers, never repository names), his public non-fork repositories, their stars and
-their languages by size. Writes data/github.json and assets/widget-github-{dark,light}.svg. Exits non-zero, writing
+The token comes from GITHUB_TOKEN (the daily Action) or, on the laptop, from `gh auth token`. Only public data is
+read: the contribution calendar (the number his profile shows, which counts private contributions as plain numbers,
+never repository names) and his public non-fork repositories with their stars and languages. Exits non-zero, writing
 nothing, if the API fails, so a bad day never replaces good numbers.
 """
 import datetime as dt
@@ -15,9 +14,6 @@ import subprocess
 import sys
 import urllib.request
 
-import widgets
-
-WEEKS = 40
 QUERY = """
 query($login: String!) {
   user(login: $login) {
@@ -31,6 +27,7 @@ query($login: String!) {
   }
 }
 """
+KEEP_DAYS = 70          # enough for this month's calendar and the last week's bars
 
 
 def token():
@@ -54,12 +51,8 @@ def fetch(login):
 
 def summarise(u):
     cal = u["contributionsCollection"]["contributionCalendar"]
-    weeks = []
-    for w in cal["weeks"][-WEEKS:]:
-        col = [None] * 7
-        for d in w["contributionDays"]:
-            col[(dt.date.fromisoformat(d["date"]).weekday() + 1) % 7] = d["contributionCount"]   # Sunday first
-        weeks.append(col)
+    days = {d["date"]: d["contributionCount"] for w in cal["weeks"] for d in w["contributionDays"]}
+    recent = dict(sorted(days.items())[-KEEP_DAYS:])
     repos = u["repositories"]["nodes"]
     size = {}
     for r in repos:
@@ -70,18 +63,25 @@ def summarise(u):
     return dict(asof=dt.datetime.now(dt.timezone.utc).date().isoformat(),
                 contributions=cal["totalContributions"], repos=u["repositories"]["totalCount"],
                 stars=sum(r["stargazerCount"] for r in repos),
-                languages=[[n, round(p, 1)] for n, p in langs if p >= 1][:5], weeks=weeks)
+                languages=[[n, round(p, 1)] for n, p in langs if p >= 1][:5], days=recent)
+
+
+def collect(login="Sohwhat6420"):
+    return summarise(fetch(login))
 
 
 def main():
-    login = sys.argv[1] if len(sys.argv) > 1 else os.environ.get("GITHUB_REPOSITORY_OWNER", "Sohwhat6420")
-    d = summarise(fetch(login))
-    os.makedirs(widgets.DATA, exist_ok=True)
-    with open(os.path.join(widgets.DATA, "github.json"), "w", encoding="utf-8", newline="\n") as fh:
+    args = [a for a in sys.argv[1:] if not a.startswith("--")]
+    out = sys.argv[sys.argv.index("--out") + 1] if "--out" in sys.argv else os.path.join(
+        os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "github.json")
+    if "--out" in sys.argv:
+        args = [a for a in args if a != out]
+    login = args[0] if args else os.environ.get("GITHUB_REPOSITORY_OWNER", "Sohwhat6420")
+    d = collect(login)
+    os.makedirs(os.path.dirname(os.path.abspath(out)), exist_ok=True)
+    with open(out, "w", encoding="utf-8", newline="\n") as fh:
         json.dump(d, fh, separators=(",", ":"))
         fh.write("\n")
-    for p, s in widgets.write_widget("widget-github", widgets.github_svg, d):
-        print("%7.1f KB  %s" % (s / 1024, os.path.basename(p)))
     print("contributions %d, repos %d, stars %d, languages %s" % (d["contributions"], d["repos"], d["stars"], d["languages"]))
 
 

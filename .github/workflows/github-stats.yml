@@ -1,7 +1,9 @@
-# Redraws the GitHub widget (assets/widget-github-*.svg) once a day from the GraphQL API, so the README never depends
-# on a shared third-party stats service. Uses only this run's GITHUB_TOKEN and public data; commits only when the
-# widget changed. The token widget is refreshed from Ethan's laptop instead (tools/refresh-tokens.py).
-name: GitHub stats widget
+# Rebuilds the README banner once a day with fresh GitHub numbers and publishes it to the `live` branch, so the
+# GitHub cards stay current even on days the laptop is off. It reads only public data with this run's GITHUB_TOKEN.
+# The Claude numbers (usage limits, Claude Code activity) only exist on Ethan's laptop: this keeps the last copies the
+# laptop published (tools/refresh.py) and redraws them as they are. Main is never written; each run adds one commit
+# to `live` (an ordinary push).
+name: Banner (daily)
 
 on:
   schedule:
@@ -12,29 +14,25 @@ permissions:
   contents: write
 
 concurrency:
-  group: github-stats
+  group: banner
   cancel-in-progress: false
 
 jobs:
-  redraw:
+  refresh:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - run: pip install "fonttools>=4.50,<5"
-      - name: Read the numbers and redraw
-        run: python tools/gh_stats.py
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Commit if changed
+      - run: pip install "fonttools>=4.50,<5" "pillow>=10,<12"
+      - name: Rebuild and publish
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -- data/github.json assets/widget-github-dark.svg assets/widget-github-light.svg
-          if git diff --cached --quiet; then echo "No change."; exit 0; fi
-          git commit -m "GitHub widget: daily redraw"
-          git pull --rebase origin main
-          git push origin HEAD:main
+          python tools/refresh.py --ci
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
