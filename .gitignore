@@ -1,0 +1,5 @@
+__pycache__/
+tools/_*
+tools/preview.html
+tools/zoom.html
+tools/koi_test.py
