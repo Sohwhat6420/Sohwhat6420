@@ -31,9 +31,47 @@ HACKATHONS = [
     ("2026", "NUS-ISS · NAISC", "agents, Workato"),    # Show Me Your Agents 2026; National AI Student Challenge 2026
 ]
 EVENTS = "Attended DEF CON SG · Black Hat Asia · SICW x GovWare"
+PROJECTS = [   # (icon, name, one line, tag); the README's own project cards say the same
+    ("phone", "Agentroid", "MCP agents that drive Android", "SOON"),
+    ("layers", "Unburden Root", "My multi-agent Claude Code harness", "PRIVATE"),
+    ("people", "BB Master Portal", "Records for BB 5th Singapore", "IN DEV"),
+    ("tv", "TV home screen", "This banner, from my TV's page", "LIVE"),
+]
+COMP_RINGS = [   # (icon, ring label, caption, fill 0-1) on the TV's battery rings
+    ("flag", "30th", "HTB", 1 - 30 / 6744),   # of 6,744 teams: top 0.5%
+    ("trophy", "T20", "Conquest", 1.0),
+    ("target", "Final", "BrainHack", 1.0),
+    ("bulb", "QF", "FinTech100", 1.0),
+]
 RINGS = [   # (icon, label, fill 0-1)
     ("flag", "0.5%", 0.995),       # HTB: top 0.5%
     ("cap", "3.77", 3.77 / 4),     # cGPA
     ("book", "5", 1.0),            # Anthropic Academy courses
     ("trophy", "136", 1.0),        # all 136 flags at Cyber Apocalypse
 ]
+
+
+def profile(gh, act):
+    """What tools/tv-profile.js writes into the TV's widget cards (capture_tv.mjs hands it over as JSON)."""
+    tok = (act or {}).get("tokens") or {}
+    recent = [v for k, v in sorted(tok.items())[-7:]]
+    return {
+        "internship": {"from": INTERNSHIP_FROM.isoformat(), "title": "Year 3 internship", "line": "From Mon 12 Apr 2027",
+                       "detail": "44 weeks · applied AI", "runup_days": 365},
+        "certified": [
+            {"icon": "claude", "main": "Claude Architect", "detail": "Certified · Anthropic · 2026", "tag": "CCA-F", "acc": True},
+            {"icon": "shield", "main": "ISC2 Cybersecurity", "detail": "Certified in Cybersecurity", "tag": "CC", "acc": True},
+            {"icon": "book", "main": "Anthropic Academy", "detail": "5 courses · 2026", "tag": "5"},
+        ],
+        "leadership": [
+            {"icon": "chevron", "main": "BB Senior Cadet Lt", "detail": "", "tag": ""},
+            {"icon": "medal", "main": "Founder's Award 2024", "detail": "", "tag": ""},
+            {"icon": "cap", "main": "cGPA 3.77", "detail": "", "tag": ""},
+        ],
+        "rings": [{"icon": i, "label": l, "caption": c, "fill": f} for i, l, c, f in COMP_RINGS],
+        "comp_foot": "<b>Hack The Box</b> Cyber Apocalypse: <b>30th of 6,744</b> · 136/136 flags",
+        "projects": [{"icon": i, "name": n, "desc": d, "tag": t, "acc": t == "LIVE"} for i, n, d, t in PROJECTS],
+        "projects_meta": "github.com/Sohwhat6420",
+        "github": {k: (gh or {}).get(k) for k in ("contributions", "repos", "days")},
+        "activity": {"total": (act or {}).get("total"), "recent_per_day": (sum(recent) / len(recent)) if recent else 0},
+    }
