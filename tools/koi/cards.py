@@ -1,5 +1,5 @@
-"""Builds the cards under the banner (assets/*-dark.svg, *-light.svg): the koi set's design, kept from the first
-version of this profile.
+"""Builds the cards under the banner (assets/*-dark.svg, *-light.svg): ghost glass in the TV widgets' tokens, with the
+animated motifs from motifs.py. (The folder keeps its old name; the koi pond pieces left in koilib are retired.)
 
     python tools/koi/cards.py
 
@@ -11,8 +11,9 @@ import math
 import os
 import random
 
-from koilib import (Doc, THEMES, REDUCED, cr, f, font, koi, koi_defs, caustics, shadow_filter, lily_pad,
-                    lotus, ripples)
+from koilib import (Doc, THEMES, REDUCED, GLASS_PAD, cr, f, font, glass, koi, koi_defs, caustics, shadow_filter,
+                    lily_pad, lotus, ripples)
+import motifs
 
 OUT = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "assets")
 
@@ -227,6 +228,7 @@ PHRASES = ["multi-agent orchestration", "applied AI", "AI security", "MCP agents
 def typing(T):
     W, H = 880, 56
     doc = Doc(W, H, "Focus areas", "Typed line cycling through: " + "; ".join(PHRASES) + ".")
+    doc.pad = (GLASS_PAD[0], 0, GLASS_PAD[2], 0)
     size = 21
     mono = font("mono")
     cw = mono.adv(mono.glyph("a")) * size / mono.upm
@@ -288,36 +290,45 @@ def typing(T):
 # ----------------------------------------------------------------------------------------------
 # section headers: a title and a little stream with one koi in it
 # ----------------------------------------------------------------------------------------------
-def header(T, idx, title, variety, seed):
-    W, H = 880, 76
-    doc = Doc(W, H, title, "Section heading: %s. A small koi swims along a stream beside it." % title)
-    koi_defs(doc)
+def header(T, idx, title, motif, desc):
+    """A section heading: the number and title, then a glass window holding that section's animated motif."""
+    W, H = 880, 92
+    doc = Doc(W, H, title, "Section heading: %s. %s" % (title, desc))
+    doc.pad = (GLASS_PAD[0], 0, GLASS_PAD[2], 0)   # same side margins as the cards, so the edges line up
     doc.css.append(frame_css())
-    ix, _ = doc.text(idx, 2, 48, "mono", 14, T["gold"], tracking=0.05)
-    tt, tw = doc.text(title, 38, 52, "serif", 42, T["text"])
+    ix, _ = doc.text(idx, 2, 56, "cap", 13, T["gold"], tracking=0.12)
+    tt, tw = doc.text(title, 34, 60, "serif", 42, T["text"])
     doc.body.append(ix + tt)
-    x1 = 38 + tw + 26
+    x1 = 34 + tw + 26
     cw = W - 2 - x1
-    doc.defs.append('<clipPath id="ch"><rect x="%s" y="24" width="%s" height="30" rx="15"/></clipPath>' % (f(x1), f(cw)))
-    doc.defs.append('<linearGradient id="chg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="%s"/>'
-                    '<stop offset="1" stop-color="%s"/></linearGradient>' % (T["bgB"], T["bgA"]))
-    b = doc.body
-    b.append('<g clip-path="url(#ch)"><rect x="%s" y="24" width="%s" height="30" fill="url(#chg)"/>' % (f(x1), f(cw)))
-    b.append(caustics(doc, T, W, H, scale=0.45, op_mul=0.7 if T["name"] == "dark" else 0.5))
-    dur = 26 + seed * 3
-    doc.css.append(".swimx{animation:swimx %ss linear infinite}@keyframes swimx{from{transform:translateX(0)}to{transform:translateX(-%spx)}}"
-                   % (dur, f(cw + 120)))
-    fish = koi(doc, variety, T=1.4, begin=0, A1=8, N=8)
-    b.append('<g class="motion"><g class="swimx" style="animation-delay:-%ss"><g transform="translate(%s 39) rotate(180) scale(.26)">%s</g></g></g>'
-             % (f(dur * 0.35), f(W + 40), fish))
-    b.append('<g class="still"><g transform="translate(%s 39) rotate(180) scale(.26)">%s</g></g>'
-             % (f(x1 + cw * 0.62), koi(doc, variety, static=True, phase=0.8)))
-    rp, rcss = ripples([(x1 + cw * 0.3, 39, 1.0), (x1 + cw * 0.78, 39, 4.0)], "#ffffff", 1.1, 34, 7.0,
-                       0.5 if T["name"] == "dark" else 0.9)
-    doc.css.append(rcss)
-    b.append(rp)
-    b.append('</g>')
-    b.append('<rect x="%s" y="24.5" width="%s" height="29" rx="14.5" fill="none" stroke="%s"/>' % (f(x1), f(cw), T["stroke"]))
+    wy, wh = 12, 66
+    doc.defs.append('<clipPath id="ch"><rect x="%s" y="%s" width="%s" height="%s" rx="18"/></clipPath>' % (f(x1), wy, f(cw), wh))
+    doc.body.append(glass(doc, T, x1, wy, cw, wh, 18, sd=4))
+    doc.body.append('<g clip-path="url(#ch)">%s</g>' % motif(doc, T, x1, wy, cw, wh))
+    doc.css.append(REDUCED)
+    return doc
+
+
+def tile(T, name, title, desc, draw):
+    """A small glass tile for the strip under the typing line."""
+    W, H = 286, 176
+    doc = Doc(W, H, title, desc)
+    doc.pad = GLASS_PAD
+    doc.body.append(glass(doc, T, 1, 1, W - 2, H - 2, 18))
+    doc.defs.append('<clipPath id="tc"><rect x="1" y="1" width="%d" height="%d" rx="18"/></clipPath>' % (W - 2, H - 2))
+    doc.body.append('<g clip-path="url(#tc)">%s</g>' % draw(doc, T, 1, 1, W - 2, H - 2))
+    doc.css.append(REDUCED)
+    return doc
+
+
+def band(T, title, desc, draw, H):
+    """A full-width glass band: the weather divider and the Concorde footer."""
+    W = 880
+    doc = Doc(W, H, title, desc)
+    doc.pad = GLASS_PAD
+    doc.body.append(glass(doc, T, 1, 1, W - 2, H - 2, 20))
+    doc.defs.append('<clipPath id="bc"><rect x="1" y="1" width="%d" height="%d" rx="20"/></clipPath>' % (W - 2, H - 2))
+    doc.body.append('<g clip-path="url(#bc)">%s</g>' % draw(doc, T, 1, 1, W - 2, H - 2))
     doc.css.append(REDUCED)
     return doc
 
@@ -326,16 +337,15 @@ def header(T, idx, title, variety, seed):
 # cards
 # ----------------------------------------------------------------------------------------------
 def card_frame(doc, T, W, H):
+    """The card's ghost glass (koilib.glass), with room round the drawing for its soft shadow."""
+    doc.pad = GLASS_PAD
+    doc.body.append(glass(doc, T, 1, 1, W - 2, H - 2, 18))
+    # anything that swims keeps inside the glass, not out in the shadow's margin
     doc.defs.append('<clipPath id="cf"><rect x="1" y="1" width="%d" height="%d" rx="18"/></clipPath>' % (W - 2, H - 2))
-    doc.defs.append('<linearGradient id="cbg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="%s"/>'
-                    '<stop offset="1" stop-color="%s"/></linearGradient>' % (T["cardHi"], T["card"]))
-    doc.body.append('<g clip-path="url(#cf)"><rect width="%d" height="%d" fill="url(#cbg)"/>%s</g>'
-                    % (W, H, caustics(doc, T, W, H, scale=0.8, op_mul=0.35 if T["name"] == "dark" else 0.5)))
-    doc.body.append('<rect x="1" y="1" width="%d" height="%d" rx="18" fill="none" stroke="%s"/>' % (W - 2, H - 2, T["stroke"]))
 
 
 def card_head(doc, T, W, eyebrow, title, subtitle, right1, right2):
-    a, _ = doc.text(eyebrow, 32, 46, "mono", 12, T["gold"], tracking=0.14)
+    a, _ = doc.text(eyebrow, 32, 46, "cap", 12, T["gold"], tracking=0.12)
     b_, _ = doc.text(title, 30, 98, "serif", 50, T["text"])
     c, _ = doc.text(subtitle, 32, 128, "sans", 17, T["dim"])
     d, _ = doc.text(right1, W - 32, 72, "sans", 16, T["text"], anchor="end")
@@ -638,8 +648,8 @@ def record(T):
     doc.css.append(frame_css())
     card_frame(doc, T, W, H)
     b = doc.body
-    e1, _ = doc.text("HTB CYBER APOCALYPSE CTF 2026", 32, 48, "mono", 12, T["gold"], tracking=0.14)
-    n1, nw = doc.text("30th", 30, 124, "serif", 80, T["accent"])
+    e1, _ = doc.text("HTB CYBER APOCALYPSE CTF 2026", 32, 48, "cap", 12, T["gold"], tracking=0.12)
+    n1, nw = doc.text("30th", 30, 124, "num", 84, T["accent"])
     o1, _ = doc.text("of 6,744 teams", 30 + nw + 14, 122, "sans", 20, T["text"])
     b.append('<g class="rise">%s%s%s</g>' % (e1, n1, o1))
     bx0, bx1, by = 470, 848, 98
@@ -662,7 +672,7 @@ def record(T):
     b.append('<line x1="32" y1="164" x2="848" y2="164" stroke="%s"/>' % T["line"])
     for i, (eyebrow, big) in enumerate([("SINGAPORE CYBER CONQUEST 2026", "Student finalist"), ("BRAINHACK CDDC 2026", "Finalist, Explorer")]):
         x0 = 32 + i * 438
-        e, _ = doc.text(eyebrow, x0, 204, "mono", 12, T["gold"], tracking=0.14)
+        e, _ = doc.text(eyebrow, x0, 204, "cap", 12, T["gold"], tracking=0.12)
         t, _ = doc.text(big, x0 - 2, 250, "serif", 40, T["text"])
         b.append('<g class="rise" style="animation-delay:%ss">%s%s</g>' % (f(0.3 + i * 0.15, 2), e, t))
     b.append('<line x1="455" y1="186" x2="455" y2="256" stroke="%s"/>' % T["line"])
@@ -749,26 +759,17 @@ def wrap(s, key, size, width):
 def project(T, i, slug, eyebrow, title, desc, link, status, variety):
     W, H = 430, 236
     doc = Doc(W, H, title, "%s. %s %s." % (title, desc, "Links to " + link if link else status.title()))
-    koi_defs(doc)
     doc.css.append(frame_css())
     card_frame(doc, T, W, H)
     b = doc.body
-    # a koi idles across the card's lower water, behind the words, at its own pace
-    dur = 30 + 4 * i
-    doc.css.append(".pk{animation:pk %ss linear infinite}@keyframes pk{from{transform:translateX(0)}to{transform:translateX(-%spx)}}"
-                   % (dur, W + 160))
-    b.append('<g class="motion" opacity=".55"><g class="pk" style="animation-delay:-%ss"><g transform="translate(%s 214) rotate(180) scale(.3)">%s</g></g></g>'
-             % (f(dur * (0.2 + 0.13 * i), 1), W + 60, koi(doc, variety, T=1.5, begin=0, A1=8, N=8)))
-    b.append('<g class="still" opacity=".55"><g transform="translate(%s 214) rotate(180) scale(.3)">%s</g></g>'
-             % (f(W * 0.7), koi(doc, variety, static=True, phase=0.7)))
-    e, _ = doc.text(eyebrow, 24, 38, "mono", 11, T["gold"], tracking=0.14)
+    e, _ = doc.text(eyebrow, 24, 38, "cap", 11, T["gold"], tracking=0.12)
     t, _ = doc.text(title, 22, 78, "serif", 34, T["text"])
     lines = "".join(doc.text(s, 24, 106 + 20 * k, "sans", 14.5, T["dim"])[0] for k, s in enumerate(wrap(desc, "sans", 14.5, W - 48)[:3]))
     b.append('<g class="rise" style="animation-delay:%ss">%s%s%s</g>' % (f(0.08 * i, 2), e, t, lines))
     # the status line: a live link nudges its arrow; a coming-soon project breathes a gold dot
     sy = H - 50
     if link:
-        s, sw = doc.text(status, 24, sy + 4, "mono", 11.5, T["accent"], tracking=0.12)
+        s, sw = doc.text(status, 24, sy + 4, "cap", 11.5, T["accent"], tracking=0.12)
         b.append(s)
         doc.css.append(".nudge{animation:nudge 1.8s cubic-bezier(.5,0,.3,1) infinite}@keyframes nudge{0%,100%{transform:none}50%{transform:translateX(5px)}}")
         b.append('<g class="nudge"><path d="M%s %sh14m-5-5 5 5-5 5" fill="none" stroke="%s" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></g>'
@@ -776,30 +777,77 @@ def project(T, i, slug, eyebrow, title, desc, link, status, variety):
     else:
         b.append('<circle cx="29" cy="%s" r="4" fill="%s"/><circle cx="29" cy="%s" r="4" fill="%s" class="pulse" style="transform-origin:29px %spx;transform-box:view-box"/>'
                  % (f(sy), T["gold"], f(sy), T["gold"], f(sy)))
-        s, _ = doc.text(status, 42, sy + 4, "mono", 11.5, T["dim"], tracking=0.12)
+        s, _ = doc.text(status, 42, sy + 4, "cap", 11.5, T["dim"], tracking=0.12)
         b.append(s)
     doc.css.append(REDUCED)
     return doc
 
 
-HEADERS = [("01", "Now building", "kohaku"), ("02", "Projects", "ogon"), ("03", "Track record", "showa")]
+HEADERS = [
+    ("01", "Now building", motifs.agent_phone,
+     "In a glass window beside it, an agent's cursor taps an app on a small phone, then an R4 delete action is held at the gate for approval."),
+    ("02", "Projects", motifs.f1,
+     "In a glass window beside it, an F1 car runs a glowing racing line through an S-bend, trailing light."),
+    ("03", "Track record", motifs.handshake,
+     "In a glass window beside it, SYN, SYN-ACK and ACK packets cross between two nodes, then a flag is captured on the target."),
+]
+
+
+def token_total():
+    """His Claude Code token total, as the TV hub measured it (the hub's /api/activity, else the last copy refresh.py
+    kept in .live/activity.json). Returns (total, 'D Mon YYYY') or (None, None): the odometer then turns with no number."""
+    import datetime as dt
+    import json
+    import urllib.request
+    src = None
+    try:
+        with urllib.request.urlopen("http://127.0.0.1:8790/api/activity", timeout=5) as r:
+            src = json.load(r)
+    except Exception:
+        p = os.path.join(os.path.dirname(OUT), ".live", "activity.json")
+        if os.path.exists(p):
+            with open(p, encoding="utf-8") as fh:
+                src = json.load(fh)
+    if not src or not src.get("total") or not src.get("made"):
+        return None, None
+    made = dt.datetime.fromisoformat(src["made"].replace("Z", "+00:00")).astimezone(dt.timezone(dt.timedelta(hours=8)))
+    return int(src["total"]), "%d %s" % (made.day, made.strftime("%b %Y"))
 
 
 def main():
-    """The cards under the README's banner, in the koi set's own design (kept from the first version of this
-    profile): the typed focus line, three section headings, the Agentroid and Unburden Root diagrams, the track
-    record, and one card per project. The koi pond hero, toolkit and footer are retired (the banner replaced them)."""
+    """The cards under the README's banner, all ghost glass in the TV widgets' tokens: the typed focus line, three
+    glass tiles (helmet, token odometer, BB and Taekwondo), three section headings each with its animated motif, the
+    Agentroid and Unburden Root diagrams, the track record, one card per project, the weather divider and the Concorde
+    footer. The koi pond hero, toolkit and koi footer are retired."""
+    total, as_of = token_total()
+    print("tokens: %s (%s)" % (total, as_of or "no reading: the odometer turns with no number"))
+    tok_desc = ("Odometer digits roll up to %.1f billion: my Claude Code tokens, as measured to %s." % (total / 1e9, as_of)
+                if total else "Odometer digits turning: my Claude Code token count.")
     report = []
     for name, T in THEMES.items():
         random.seed(1)
         report.append(write("typing", name, typing(T)))
-        for i, (idx, title, v) in enumerate(HEADERS):
-            report.append(write("h%s-%s" % (idx, title.lower().replace(" ", "-")), name, header(T, idx, title, v, i)))
+        report.append(write("about-helmet", name, tile(T, "helmet", "Spartan",
+                            "An original gold line drawing of a crested Greek helmet draws itself, then a light sweeps across it.",
+                            motifs.helmet)))
+        report.append(write("about-tokens", name, tile(T, "tokens", "Claude Code tokens", tok_desc,
+                            lambda d, t, x, y, w, h: motifs.tokens(d, t, x, y, w, h, total, as_of))))
+        report.append(write("about-bb-tkd", name, tile(T, "bb", "Boys' Brigade and Taekwondo",
+                            "A Boys' Brigade chevron and a Taekwondo black-belt knot draw themselves in gold lines.",
+                            motifs.bb_tkd)))
+        for idx, title, motif, desc in HEADERS:
+            report.append(write("h%s-%s" % (idx, title.lower().replace(" ", "-")), name, header(T, idx, title, motif, desc)))
         report.append(write("card-agentroid", name, agentroid(T)))
         report.append(write("card-unburden-root", name, unburden(T)))
         report.append(write("track-record", name, record(T)))
         for i, p in enumerate(PROJECTS):
             report.append(write("project-" + p[0], name, project(T, i, *p)))
+        report.append(write("divider-weather", name, band(T, "Weather",
+                            "My TV's live weather layer: rain streaks and drifting cloud, a lightning flash, then a golden-hour glow.",
+                            motifs.weather, 110)))
+        report.append(write("footer-concorde", name, band(T, "Concorde",
+                            "Concorde rolls along a wet runway, rotates and climbs away, heat shimmering behind its engines.",
+                            motifs.concorde, 150)))
     for p, s in report:
         print("%7.1f KB  %s" % (s / 1024, os.path.basename(p)))
 

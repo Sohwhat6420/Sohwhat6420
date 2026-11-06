@@ -148,10 +148,14 @@ FONTS = {}
 
 
 def font(key):
+    # the TV's widget type: Hanken Grotesk for the UI (labels 600 caps), Instrument Serif for display, Antonio for numbers
     files = {
         "serif": "InstrumentSerif-Regular.ttf",
-        "sans": "InstrumentSans-Regular.ttf",
-        "sansb": "InstrumentSans-Bold.ttf",
+        "sans": "HankenGrotesk-Regular.ttf",
+        "sansm": "HankenGrotesk-Medium.ttf",
+        "cap": "HankenGrotesk-SemiBold.ttf",
+        "sansb": "HankenGrotesk-Bold.ttf",
+        "num": "Antonio-Light.ttf",
         "mono": "JetBrainsMono-Regular.ttf",
         "monob": "JetBrainsMono-Bold.ttf",
     }
@@ -171,6 +175,7 @@ class Doc:
         self.css = []
         self.body = []
         self._n = 0
+        self.pad = (0, 0, 0, 0)   # (left, top, right, bottom): room outside the drawing for a card's soft shadow
 
     def uid(self, p="i"):
         self._n += 1
@@ -208,8 +213,10 @@ class Doc:
         for (key, g), gid in self.glyphs.items():
             glyph_defs.append('<path id="%s" d="%s"/>' % (gid, font(key).path(g)))
         css = "\n".join(self.css)
-        out = ['<svg xmlns="http://www.w3.org/2000/svg" width="%d" height="%d" viewBox="0 0 %d %d" role="img" aria-labelledby="t d">'
-               % (self.w, self.h, self.w, self.h),
+        pl, pt, pr, pb = self.pad
+        vw, vh = self.w + pl + pr, self.h + pt + pb
+        out = ['<svg xmlns="http://www.w3.org/2000/svg" width="%d" height="%d" viewBox="%s %s %d %d" role="img" aria-labelledby="t d">'
+               % (vw, vh, f(-pl), f(-pt), vw, vh),
                '<title id="t">%s</title><desc id="d">%s</desc>' % (esc(self.title), esc(self.desc)),
                "<style><![CDATA[\n%s\n]]></style>" % css,
                "<defs>%s%s</defs>" % ("".join(glyph_defs), "".join(self.defs)),
@@ -230,22 +237,40 @@ REDUCED = """
 # ----------------------------------------------------------------------------------------------
 # themes
 # ----------------------------------------------------------------------------------------------
+#   The boxes are ghost glass in the TV widgets' own tokens (xiaomi-tv-revamp/tv-setup.html: the dock's --g-* glass,
+#   the widget cards' type colours). A README image cannot blur the page behind it, so the frost is imitated: a
+#   low-alpha neutral fill over GitHub's own page colour, the TV's sheen over the top half, a glow where the light
+#   lands, a fine grain, a top-edge highlight, a hairline ring and a soft outer shadow. No pond colour is left.
+#   g* keys feed glass(); text tokens are checked for WCAG AA against the glass composited on GitHub's page colours.
 THEMES = {
     "dark": dict(
         name="dark",
+        # pond pieces: only the retired hero and footer use these
         bgA="#0f3b45", bgB="#0a2730", bgC="#04121a",
         pebbles=["#0b2c35", "#124049", "#08222a", "#0e343d"],
         caustic="#a8efe0", cau1=0.085, cau2=0.06,
         tint="#0a2a33", tintOp=0.42,
-        text="#f4ecdc", dim="#a3c1bd", faint="#5f8a8a", gold="#dcb25e", accent="#f07a45", danger="#ff7a6b",
-        ok="#7fd1b0",
         padEdge="#285f40", padMid="#3e8957", padVein="#86c896", padRim="#5aa36e",
         lotusA="#fbe7e1", lotusB="#ec9fa5", lotusC="#f2c94c",
         shadow=(0.01, 0.05, 0.07, 0.55),
         scrim="#051820", scrimOp=0.88,
         glint="#ffffff",
-        card="#0a222b", cardHi="#0d2b35", stroke="#1d4a55", chip="#0f313b", chipStroke="#285c67",
-        line="#2a5b66",
+        # type and accents, the TV's (tv-setup.html --g-ink, the cards' grey #b8bcc4, --accent, HOT, the low red;
+        # page: #0d1117)
+        text="#f4f3ef", dim="#b8bcc4", faint="#8f949c", gold="#d9b77a", accent="#ffb340", danger="#ff8a7e",
+        ok="#a9c9ec", acc="#e9eef5",
+        # ghost glass, the TV dock's: sheen .07 over the top half, top edge .42, rim .15, long shadow .52; the fill is
+        # lifted a little off GitHub's flat page, since there is no painting behind it to frost
+        gBase="rgba(28,32,39,.56)", gHiA="rgba(255,255,255,.07)", gHiB="rgba(255,255,255,.01)",
+        gGlow="#ffffff", gGlowOp=0.035, gGrain="#ffffff", gGrainOp=0.05,
+        gRing="#ffffff", gRingOp=0.15, gSheen="#ffffff", gSheenOp=0.42,
+        gShadow="#000000", gShadowOp=0.52,
+        trk="#ffffff", trkOp=0.05, ink="#0b0d10",
+        rip="#ffffff", ripOp=0.32,
+        # glass inside the glass: nodes, pills and lanes; solid pills for packets that cross a line
+        card="#1f242b", cardHi="#1f242b", stroke="rgba(255,255,255,.12)",
+        chip="rgba(255,255,255,.045)", chipStroke="rgba(255,255,255,.14)",
+        line="#4b535d",
     ),
     "light": dict(
         name="light",
@@ -253,17 +278,77 @@ THEMES = {
         pebbles=["#a6d0c8", "#c3e2db", "#93c2ba", "#b2d6ce"],
         caustic="#ffffff", cau1=0.28, cau2=0.18,
         tint="#b9dcd4", tintOp=0.3,
-        text="#0b2530", dim="#33575d", faint="#6a8e90", gold="#8a6416", accent="#bf4d1b", danger="#c2362b",
-        ok="#1f7a5a",
         padEdge="#3c8550", padMid="#5ea866", padVein="#b4e3b4", padRim="#83c98b",
         lotusA="#fff4f0", lotusB="#e98f99", lotusC="#e0b43a",
         shadow=(0.03, 0.16, 0.18, 0.5),
         scrim="#e6f3ef", scrimOp=0.9,
         glint="#ffffff",
-        card="#f3f9f6", cardHi="#e9f4f0", stroke="#c2dbd4", chip="#e4f1ec", chipStroke="#b3d1c9",
-        line="#a9cbc3",
+        # type and accents: the TV's light glass (--g-ink #14161a, --g-sub at .78, the darker status colours it uses
+        # for 4.5:1 on white glass); page: #ffffff
+        text="#14161a", dim="#4c5058", faint="#5d636c", gold="#7a5612", accent="#9a4f00", danger="#8f0012",
+        ok="#2b5f91", acc="#3a4250",
+        # ghost glass, the TV's light dock: warm off-white fill (246,245,241), sheen .18, top edge .88, its hairline
+        # (20,22,26,.14) for the ring, shadow rgba(10,20,40,.3)
+        gBase="rgba(243,242,238,.62)", gHiA="rgba(255,255,255,.18)", gHiB="rgba(232,234,238,.24)",
+        gGlow="#ffffff", gGlowOp=0.6, gGrain="#14161a", gGrainOp=0.03,
+        gRing="#14161a", gRingOp=0.11, gSheen="#ffffff", gSheenOp=0.88,
+        gShadow="#0a1428", gShadowOp=0.22,
+        trk="#14161a", trkOp=0.05, ink="#0b0d10",
+        rip="#14161a", ripOp=0.16,
+        card="#ffffff", cardHi="#ffffff", stroke="rgba(31,35,40,.10)",
+        chip="rgba(255,255,255,.62)", chipStroke="rgba(31,35,40,.12)",
+        line="#bcc3cc",
     ),
 }
+
+# room around a card for its outer shadow (left, top, right, bottom), in the card's own pixels
+GLASS_PAD = (16, 6, 16, 26)
+
+
+def glass(doc, T, x, y, w, h, r, shadow=True, sd=9.0):
+    """One ghost-glass panel: soft shadow, translucent fill, light gradient and glow, grain, top-edge sheen and a
+    hairline ring. Returns the SVG; the content goes on top. Every def gets this doc's own ids."""
+    k = doc.uid("gl")
+    rect = 'x="%s" y="%s" width="%s" height="%s" rx="%s"' % (f(x, 2), f(y, 2), f(w, 2), f(h, 2), f(r, 2))
+    doc.defs.append('<clipPath id="%sc"><rect %s/></clipPath>' % (k, rect))
+    # the TV's sheen: light over the top half, gone by 48 %, then a faint shade towards the foot
+    doc.defs.append('<linearGradient id="%sg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="%s"/>'
+                    '<stop offset=".48" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="%s"/></linearGradient>'
+                    % (k, T["gHiA"], T["gHiB"]))
+    doc.defs.append('<radialGradient id="%sr" gradientUnits="userSpaceOnUse" cx="%s" cy="%s" r="%s">'
+                    '<stop offset="0" stop-color="%s" stop-opacity="%s"/><stop offset="1" stop-color="%s" stop-opacity="0"/>'
+                    '</radialGradient>' % (k, f(x + w * 0.18, 1), f(y - h * 0.1, 1), f(max(w, h) * 0.75, 1),
+                                           T["gGlow"], f(T["gGlowOp"], 3), T["gGlow"]))
+    doc.defs.append('<linearGradient id="%ss" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="%s" stop-opacity="0"/>'
+                    '<stop offset=".22" stop-color="%s" stop-opacity="%s"/><stop offset=".78" stop-color="%s" stop-opacity="%s"/>'
+                    '<stop offset="1" stop-color="%s" stop-opacity="0"/></linearGradient>'
+                    % (k, T["gSheen"], T["gSheen"], f(T["gSheenOp"], 3), T["gSheen"], f(T["gSheenOp"] * 0.55, 3), T["gSheen"]))
+    # grain: static fractal noise, its red channel turned into a faint alpha
+    gr, gg, gb = (int(T["gGrain"][i:i + 2], 16) / 255 for i in (1, 3, 5))
+    doc.defs.append('<filter id="%sn" x="0" y="0" width="100%%" height="100%%" color-interpolation-filters="sRGB">'
+                    '<feTurbulence type="fractalNoise" baseFrequency="1.15" numOctaves="2" seed="%d" stitchTiles="stitch"/>'
+                    '<feColorMatrix values="0 0 0 0 %s  0 0 0 0 %s  0 0 0 0 %s  2.2 0 0 0 -.9"/></filter>'
+                    % (k, len(doc.defs) % 97, f(gr, 3), f(gg, 3), f(gb, 3)))
+    out = []
+    if shadow:
+        doc.defs.append('<filter id="%sb" x="-20%%" y="-20%%" width="140%%" height="160%%"><feGaussianBlur stdDeviation="%s"/></filter>'
+                        % (k, f(sd, 2)))
+        inset = min(10.0, w * 0.04)
+        out.append('<rect x="%s" y="%s" width="%s" height="%s" rx="%s" fill="%s" fill-opacity="%s" filter="url(#%sb)"/>'
+                   % (f(x + inset, 2), f(y + sd * 1.7, 2), f(w - 2 * inset, 2), f(h - sd * 2, 2), f(r, 2),
+                      T["gShadow"], f(T["gShadowOp"], 3), k))
+    out.append('<rect %s fill="%s"/>' % (rect, T["gBase"]))
+    out.append('<g clip-path="url(#%sc)"><rect %s fill="url(#%sg)"/><rect %s fill="url(#%sr)"/>'
+               '<rect %s opacity="%s" filter="url(#%sn)"/></g>'
+               % (k, rect, k, rect, k, rect, f(T["gGrainOp"] * 1.6, 3), k))
+    # the top edge catches the light: an inner line along the top, fading round the corners
+    rr = max(0.0, r - 0.6)
+    out.append('<path d="M%s %sa%s %s 0 0 1 %s-%sH%sa%s %s 0 0 1 %s %s" fill="none" stroke="url(#%ss)" stroke-width="1.1"/>'
+               % (f(x + 0.6, 2), f(y + rr, 2), f(rr, 2), f(rr, 2), f(rr, 2), f(rr - 0.6, 2), f(x + w - rr - 0.6, 2),
+                  f(rr, 2), f(rr, 2), f(rr, 2), f(rr - 0.6, 2), k))
+    out.append('<rect x="%s" y="%s" width="%s" height="%s" rx="%s" fill="none" stroke="%s" stroke-opacity="%s"/>'
+               % (f(x + 0.5, 2), f(y + 0.5, 2), f(w - 1, 2), f(h - 1, 2), f(max(0, r - 0.5), 2), T["gRing"], f(T["gRingOp"], 3)))
+    return "".join(out)
 
 # ----------------------------------------------------------------------------------------------
 # the koi

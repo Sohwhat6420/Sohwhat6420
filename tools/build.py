@@ -13,6 +13,7 @@ import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 
+sys.path.insert(0, os.path.join(HERE, "koi"))   # run_path does not put the script's folder on the path; cards.py imports koilib
 runpy.run_path(os.path.join(HERE, "koi", "cards.py"), run_name="__main__")
 kw = {"creationflags": subprocess.CREATE_NO_WINDOW} if os.name == "nt" else {}
 sys.exit(subprocess.run([sys.executable, os.path.join(HERE, "refresh.py"), "--no-push"], **kw).returncode)
