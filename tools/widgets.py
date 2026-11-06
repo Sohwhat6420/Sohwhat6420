@@ -79,7 +79,7 @@ def glass(doc, T, w, h, frost_name, r=30):
 
 
 def label(doc, T, s, x, y, anchor="start", maxw=520):
-    size = fit("sansb", s, 32, maxw, 0.12, floor=28)
+    size = fit("sansb", s, 34, maxw, 0.12, floor=28)
     return doc.text(s, x, y, "sansb", size, T["dim"], tracking=0.12, anchor=anchor)[0]
 
 
@@ -125,7 +125,7 @@ def tokens_svg(d, T):
                     % (int(i * 6), f(x, 2), f(y1 - h, 2), f(bwid, 2), f(h, 2), f(min(2, bwid / 2), 2), T["ramp"], f(op, 2)))
     b.append("".join(bars))
     foot = "%s – %s  ·  all models" % (day(first)[:-5], day(asof))
-    b.append(doc.text(foot, 40, 352, "sans", fit("sans", foot, 34, W - 80, floor=30), T["faint"])[0])
+    b.append(doc.text(foot, 40, 352, "sans", fit("sans", foot, 36, W - 80, floor=32), T["faint"])[0])
     doc.body.extend(b)
     return doc
 
@@ -174,7 +174,7 @@ def github_svg(d, T):
     foot = "%d public repo%s  ·  %d star%s" % (d["repos"], "" if d["repos"] == 1 else "s", d["stars"], "" if d["stars"] == 1 else "s")
     if langs:
         foot += "  ·  " + langs[0][0]
-    b.append(doc.text(foot, 40, 352, "sans", fit("sans", foot, 34, W - 80, floor=30), T["faint"])[0])
+    b.append(doc.text(foot, 40, 352, "sans", fit("sans", foot, 36, W - 80, floor=32), T["faint"])[0])
     doc.body.extend(b)
     return doc
 
@@ -191,9 +191,9 @@ def htb_svg(T):
     b.append(big)
     x2 = 40 + bw + 44
     b.append('<rect x="%s" y="48" width="2" height="104" fill="%s" opacity=".35"/>' % (f(x2 - 22), T["dim"]))
-    b.append(label(doc, T, "HACK THE BOX CYBER APOCALYPSE 2026", x2, 84, maxw=W - 64 - x2))
-    l2 = "CTF: 30th of 6,744 teams, all 136 flags"
-    b.append(doc.text(l2, x2, 140, "sans", fit("sans", l2, 40, W - 40 - x2, floor=34), T["text"])[0])
+    b.append(label(doc, T, "HACK THE BOX  ·  CYBER APOCALYPSE", x2, 84, maxw=W - 64 - x2))
+    l2 = "CTF 2026: 30th of 6,744 teams, all 136 flags"
+    b.append(doc.text(l2, x2, 140, "sans", fit("sans", l2, 40, W - 60 - x2, floor=34), T["text"])[0])
     doc.body.extend(b)
     return doc
 

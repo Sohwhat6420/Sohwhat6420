@@ -112,7 +112,8 @@ def hero(still=None):
     doc.defs.append('<linearGradient id="sw" x1="0" y1="0" x2="1" y2="0">'
                     '<stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".7"/>'
                     '<stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>')
-    doc.defs.append('<filter id="halo" x="-5%" y="-15%" width="110%" height="130%"><feGaussianBlur stdDeviation="9"/></filter>')
+    doc.defs.append('<filter id="halo" x="-5%" y="-15%" width="110%" height="130%"><feGaussianBlur stdDeviation="7"/></filter>'
+                    '<filter id="halot" x="-3%" y="-60%" width="106%" height="220%"><feGaussianBlur stdDeviation="4"/></filter>')
     doc.defs.append('<clipPath id="fr"><rect width="%d" height="%d" rx="22"/></clipPath>' % (W, H))
     doc.defs.append('<linearGradient id="vg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity=".2"/>'
                     '<stop offset=".28" stop-color="#000" stop-opacity="0"/><stop offset=".82" stop-color="#000" stop-opacity="0"/>'
@@ -133,7 +134,7 @@ def hero(still=None):
         # 2 the name in the TV's Ghost material, and its sheen. A dark ink gets the TV legibility guard's boost: a soft
         #   light halo, invisible on bright sky, that keeps the letters apart from dark trees
         if sc["blend"] == "multiply":
-            body.append('<g class="nm" opacity=".42" filter="url(#halo)"><g fill="#f4f2ee">%s</g></g>' % name)
+            body.append('<g class="nm" opacity=".3" filter="url(#halo)"><g fill="#f4f2ee">%s</g></g>' % name)
         body.append('<g class="nm" opacity="%s" style="mix-blend-mode:%s"><g fill="%s">%s</g></g>'
                     % (f(sc["op"], 2), sc["blend"], sc["ink"], name))
         body.append('<g class="nm" style="mix-blend-mode:soft-light"><g mask="url(#nm)">'
@@ -141,6 +142,8 @@ def hero(still=None):
         # 3 the depth cut-out: the subject in front of the name
         body.append('<image class="pl" href="%s" x="%d" y="%d" width="%d" height="%d"/>' % (cut, cx, cy, cw, ch))
         # 4 the line above it, where the TV puts the date (drawn above the cut-out, as on the TV)
+        if sc["blend"] == "multiply" and sc["tag"] < "#8":     # a dark line: the same light halo as the name
+            body.append('<g fill="#f4f2ee" opacity=".55" filter="url(#halot)">%s</g>' % tag)
         body.append('<g fill="%s" opacity=".92">%s</g>' % (sc["tag"], tag))
         body.append('</g>')
     body.append('<rect width="%d" height="%d" fill="url(#vg)" opacity=".6"/>' % (W, H))
