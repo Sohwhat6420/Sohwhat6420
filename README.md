@@ -12,6 +12,10 @@
 **Applied AI and agent engineering, with a security edge.** Year 2, Cybersecurity and Digital Forensics, Singapore Polytechnic.
 Seeking a 44-week internship in applied AI and AI security, from 12 April 2027.
 
+<a href="https://github.com/Sohwhat6420/Sohwhat6420/raw/main/Ethan-Soh-CV.pdf"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/cv-download-dark.svg"><img src="assets/cv-download-light.svg" width="318" alt="Download CV (PDF). Ethan Soh's full CV, 2 pages, for ATS or a closer read."></picture></a>
+
+<sub>Short on time? <a href="https://github.com/Sohwhat6420/Sohwhat6420/raw/main/Ethan-Soh-CV-1-page.pdf">The one-page version</a>.</sub>
+
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/h01-now-building-dark.svg">
   <img alt="01 Now building. An agent's cursor taps a phone; an R4 delete is held at the gate." src="assets/h01-now-building-light.svg" width="100%">
