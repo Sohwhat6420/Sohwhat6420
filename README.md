@@ -14,7 +14,7 @@ Seeking a 44-week internship in applied AI and AI security, from 12 April 2027.
 
 <a href="https://github.com/Sohwhat6420/Sohwhat6420/raw/main/Ethan-Soh-CV.pdf"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/cv-download-dark.svg"><img src="assets/cv-download-light.svg" width="318" alt="Download CV (PDF). Ethan Soh's full CV, 2 pages, for ATS or a closer read."></picture></a>
 
-<sub>Short on time? <a href="https://github.com/Sohwhat6420/Sohwhat6420/raw/main/Ethan-Soh-CV-1-page.pdf">The one-page version</a>.</sub>
+<sub>Short on time? <a href="https://github.com/Sohwhat6420/Sohwhat6420/raw/main/Ethan-Soh-CV-1-page.pdf">The one-page version</a>. Or find me on <a href="https://www.linkedin.com/in/ethan-soh2008">LinkedIn</a>.</sub>
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/h01-now-building-dark.svg">
@@ -42,6 +42,19 @@ Seeking a 44-week internship in applied AI and AI security, from 12 April 2027.
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/project-show-me-your-agents-dark.svg"><img src="assets/project-show-me-your-agents-light.svg" width="49%" alt="Show Me Your Agents, NUS-ISS hackathon 2026: an agentic AI answer to a real business problem. Write-up coming soon."></picture>
 <a href="https://github.com/Sohwhat6420/Sohwhat6420"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/project-tv-home-screen-dark.svg"><img src="assets/project-tv-home-screen-light.svg" width="49%" alt="My TV, as a banner: the banner above, my TV's home screen rebuilt as one animated SVG. Opens this repository."></picture></a>
 <a href="https://github.com/Sohwhat6420/ST2612-EST-System"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/project-st2612-est-dark.svg"><img src="assets/project-st2612-est-light.svg" width="49%" alt="ST2612 EST System: an open-book exam harness with a knowledge base, adversarial audit agents and an answer pipeline. Opens the repository."></picture></a>
+
+<p align="center">
+<a href="https://github.com/Sohwhat6420/headless-kit"><picture>
+  <source media="(max-width: 1011px) and (prefers-color-scheme:dark)" srcset="assets/project-headless-kit-dark-m.svg">
+  <source media="(max-width: 1011px)" srcset="assets/project-headless-kit-light-m.svg">
+  <source media="(prefers-color-scheme: dark)" srcset="assets/project-headless-kit-dark.svg">
+  <img src="assets/project-headless-kit-light.svg" width="416" alt="headless-kit: a terminal runs reddit-pull and prints one JSON line; detached-run's launcher window closes and its process keeps running with no window. Two dependency-free Node tools for agents, no browser or API key needed. MIT licence. Public repo. Opens the repository.">
+</picture></a>
+</p>
+
+<p align="center"><sub><b>headless-kit</b> is two small Node tools that an AI agent can run with no browser, no API key and no window: <code>reddit-pull</code> returns public Reddit posts and comments as one JSON line, and <code>detached-run</code> starts a Windows process that carries on after its launcher has gone. Tested, with CI on Windows and Ubuntu. Whatever they fetch is treated as untrusted data, never as instructions to the agent.</sub></p>
+
+<p align="center"><sub>Earlier work: I wrote and checked the 6093 Biology papers a tuition centre now uses (Alchemy Education Studio, Feb 2025 to Oct 2026), and built a harness that drafts them from a reference library and checks the format.</sub></p>
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/h03-track-record-dark.svg">
