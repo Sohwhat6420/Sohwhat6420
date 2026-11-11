@@ -6,8 +6,10 @@
 </picture>
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/about-helmet-dark.svg"><img src="assets/about-helmet-light.svg" width="32%" alt="A gold line drawing of a crested Spartan helmet draws itself, then catches a sweep of light."></picture>
-<picture><source media="(prefers-color-scheme: dark)" srcset="assets/about-tokens-dark.svg"><img src="assets/about-tokens-light.svg" width="32%" alt="Odometer: 67.5 billion tokens directed across Claude, Gemini and Codex, measured to 11 Nov 2026."></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/about-tokens-dark.svg"><img src="assets/about-tokens-light.svg" width="32%" alt="Odometer: 117 billion tokens on Claude Code as shown by its /stats screen, to 11 Nov 2026. /stats counts each part of a reply separately; counted once per reply across Claude, Gemini and Codex it is 67.5 billion."></picture>
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/about-bb-tkd-dark.svg"><img src="assets/about-bb-tkd-light.svg" width="32%" alt="A Boys' Brigade chevron and a Taekwondo black-belt knot, drawn in gold."></picture>
+
+<sub>Token tile: /stats counts each part of a reply separately; counted once per reply across Claude, Gemini and Codex it is 67.5 B.</sub>
 
 **Applied AI and agent engineering, with a security edge.** Year 2, Cybersecurity and Digital Forensics, Singapore Polytechnic.
 Seeking a 44-week internship in applied AI and AI security, from 12 April 2027.
