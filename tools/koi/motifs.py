@@ -390,7 +390,7 @@ def helmet(doc, T, x, y, w, h):
 # 7. the token odometer
 # ----------------------------------------------------------------------------------------------
 def tokens(doc, T, x, y, w, h, total, as_of):
-    """Rolls up to the measured total, e.g. 50,419,188,685 -> 50.4 B. Without a number, the wheels just turn."""
+    """Rolls up to the measured total, e.g. 67,529,000,000 -> 67.5 B. Without a number, the wheels just turn."""
     p = _pfx(doc, "tk")
     size = min(h * 0.62, 78)
     num = font("num")
@@ -428,8 +428,9 @@ def tokens(doc, T, x, y, w, h, total, as_of):
     out = ['<g filter="url(#%sg)" opacity=".45"><g clip-path="url(#%sc)" fill="%s">%s</g></g>' % (p, p, T["gold"], digits.replace(T["text"], T["gold"])),
            '<g clip-path="url(#%sc)">%s</g>' % (p, digits), sfx]
     _css(doc, "\n".join(css), p)
-    out.append(cap(doc, T, "Claude Code tokens", x + w / 2, y + 22, 11, T["dim"], "middle"))
+    out.append(cap(doc, T, "Tokens directed", x + w / 2, y + 22, 11, T["dim"], "middle"))
     if total:
+        out.append(cap(doc, T, "Claude, Gemini and Codex", x + w / 2, y + h - 25, 10, T["dim"], "middle"))
         out.append(cap(doc, T, "measured, to %s" % as_of, x + w / 2, y + h - 10, 10, T["faint"], "middle"))
     return "".join(out)
 
