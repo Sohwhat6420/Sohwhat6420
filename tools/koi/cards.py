@@ -835,8 +835,9 @@ def main():
     footer. The koi pond hero, toolkit and koi footer are retired."""
     total, as_of = token_total()
     print("tokens: %s (%s)" % (total, as_of or "no reading: the odometer turns with no number"))
-    tok_desc = ("Odometer digits roll up to %.1f billion: tokens I have directed across Claude, Gemini and Codex, as measured to %s."
-                % (total / 1e9, as_of) if total else "Odometer digits turning: my AI token count.")
+    tok_desc = ("Odometer digits roll up to %d billion: tokens on Claude Code, as shown on its /stats screen, to %s. /stats counts each "
+                "part of a reply separately; counted once per reply across Claude, Gemini and Codex it is 67.5 billion."
+                % (int(total // 1e9), as_of) if total else "Odometer digits turning: my Claude Code token count.")
     report = []
     for name, T in THEMES.items():
         random.seed(1)
@@ -844,7 +845,7 @@ def main():
         report.append(write("about-helmet", name, tile(T, "helmet", "Spartan",
                             "An original gold line drawing of a crested Greek helmet draws itself, then a light sweeps across it.",
                             motifs.helmet)))
-        report.append(write("about-tokens", name, tile(T, "tokens", "AI tokens directed", tok_desc,
+        report.append(write("about-tokens", name, tile(T, "tokens", "Tokens on Claude Code", tok_desc,
                             lambda d, t, x, y, w, h: motifs.tokens(d, t, x, y, w, h, total, as_of))))
         report.append(write("about-bb-tkd", name, tile(T, "bb", "Boys' Brigade and Taekwondo",
                             "A Boys' Brigade chevron and a Taekwondo black-belt knot draw themselves in gold lines.",

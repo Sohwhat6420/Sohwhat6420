@@ -395,7 +395,8 @@ def tokens(doc, T, x, y, w, h, total, as_of):
     size = min(h * 0.62, 78)
     num = font("num")
     lh = size * 1.06
-    chars = ("%.1f" % (total / 1e9)) if total else "88.8"
+    # 100 B and over show as whole billions, rounded down (117,385 M -> "117"); under that, one decimal ("67.5")
+    chars = (str(int(total // 1e9)) if total >= 100e9 else "%.1f" % (total / 1e9)) if total else "88.8"
     cw = num.width("0", size)
     dw = num.width(".", size)
     widths = [dw if c == "." else cw for c in chars]
@@ -428,10 +429,9 @@ def tokens(doc, T, x, y, w, h, total, as_of):
     out = ['<g filter="url(#%sg)" opacity=".45"><g clip-path="url(#%sc)" fill="%s">%s</g></g>' % (p, p, T["gold"], digits.replace(T["text"], T["gold"])),
            '<g clip-path="url(#%sc)">%s</g>' % (p, digits), sfx]
     _css(doc, "\n".join(css), p)
-    out.append(cap(doc, T, "Tokens directed", x + w / 2, y + 22, 11, T["dim"], "middle"))
+    out.append(cap(doc, T, "Tokens on Claude Code", x + w / 2, y + 22, 11, T["dim"], "middle"))
     if total:
-        out.append(cap(doc, T, "Claude, Gemini and Codex", x + w / 2, y + h - 25, 10, T["dim"], "middle"))
-        out.append(cap(doc, T, "measured, to %s" % as_of, x + w / 2, y + h - 10, 10, T["faint"], "middle"))
+        out.append(cap(doc, T, "as shown on /stats, to %s" % as_of, x + w / 2, y + h - 12, 10, T["faint"], "middle"))
     return "".join(out)
 
 
