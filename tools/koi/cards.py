@@ -14,6 +14,7 @@ import random
 from koilib import (Doc, THEMES, REDUCED, GLASS_PAD, cr, f, font, glass, koi, koi_defs, caustics, shadow_filter,
                     lily_pad, lotus, ripples)
 import motifs
+import caret
 
 OUT = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "assets")
 
@@ -242,20 +243,28 @@ def typing(T):
     x_text = 4 + len(prefix) * cw
     doc.body.append(pre)
 
-    type_ms, del_ms, hold, gap = 0.058, 0.026, 1.9, 0.38
+    type_ms, del_ms, hold, gap = 0.058, 0.026, 2.5, 1.3   # the hold and the rest are long enough for Clawd's hops
     events = []  # (t, phrase_index, chars)
+    segs = []    # (pose, start, end): R runs right, L runs left, F faces the viewer and hops
     t = 0.2
+    segs.append(("F", 0.0, t))
     for i, p in enumerate(PHRASES):
+        t0 = t
         for k in range(1, len(p) + 1):
             events.append((t, i, k))
             t += type_ms
+        segs.append(("R", t0, t))
+        segs.append(("F", t, t + hold))
         t += hold
+        t1 = t
         for k in range(len(p) - 1, -1, -1):
             events.append((t, i, k))
             t += del_ms
+        segs.append(("L", t1, t))
+        segs.append(("F", t, t + gap))
         t += gap
     cycle = t
-    caret_kt, caret_v = ["0"], [f(x_text, 2)]
+    caret_kt, caret_v = ["0"], [f(x_text + 2, 2)]
     clips = []
     motion = ['<g class="motion">']
     for i, p in enumerate(PHRASES):
@@ -275,14 +284,13 @@ def typing(T):
         caret_kt.append(f(te / cycle, 5))
         caret_v.append(f(x_text + k * cw + 2, 2))
     doc.defs.extend(clips)
-    motion.append('<rect y="16" width="11" height="26" rx="1.5" fill="%s" class="caret"><animate attributeName="x" dur="%ss" '
-                  'repeatCount="indefinite" calcMode="discrete" keyTimes="%s" values="%s"/></rect>'
-                  % (T["gold"], f(cycle, 3), ";".join(caret_kt), ";".join(caret_v)))
+    # Clawd is the caret: he stands straight after the last typed letter and moves with it
+    motion.append(caret.build(doc, T, cycle, caret_kt, caret_v, segs))
     motion.append("</g>")
     doc.body.append("".join(motion))
-    st, _ = doc.text("multi-agent orchestration · applied AI · AI security", x_text, base_y, "mono", size, T["text"])
-    doc.body.append('<g class="still">%s</g>' % st)
-    doc.css.append(".caret{animation:blink 1.05s steps(1) infinite}@keyframes blink{50%{opacity:0}}")
+    still_text = "multi-agent orchestration · applied AI"   # two items, so Clawd fits after it
+    st, stw = doc.text(still_text, x_text, base_y, "mono", size, T["text"])
+    doc.body.append('<g class="still">%s%s</g>' % (st, caret.still(x_text + stw + 8)))
     doc.css.append(REDUCED)
     return doc
 
@@ -799,6 +807,12 @@ def token_total():
     import datetime as dt
     import json
     import urllib.request
+    # TOKEN_TOTAL_OVERRIDE="63545988543|11 Nov 2026": a total counted from the session logs (deduplicated), used in place of
+    # the hub's figure. The hub's /api/activity reads the plan's own meter, which counts each reply more than once.
+    ov = os.environ.get("TOKEN_TOTAL_OVERRIDE")
+    if ov:
+        n, d = ov.split("|")
+        return int(n), d.strip()
     src = None
     try:
         with urllib.request.urlopen("http://127.0.0.1:8790/api/activity", timeout=5) as r:
