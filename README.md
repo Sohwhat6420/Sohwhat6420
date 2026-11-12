@@ -5,9 +5,9 @@
   <img alt="Now focused on: multi-agent orchestration, applied AI, AI security, MCP agents that drive Android, Claude Code harness engineering." src="assets/typing-light.svg" width="100%">
 </picture>
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="assets/about-contrib-dark.svg"><img src="assets/about-contrib-light.svg" width="32%" alt="My last twenty weeks of GitHub contributions filling in week by week, with 10.3 thousand contributions in the past year underneath."></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/about-contrib-dark.svg"><img src="assets/about-contrib-light.svg" width="32%" alt="My last twenty weeks of GitHub contributions filling in week by week, with 10.4 thousand contributions in the past year underneath."></picture>
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/about-tokens-dark.svg"><img src="assets/about-tokens-light.svg" width="32%" alt="Odometer: 117 billion tokens on Claude Code as shown by its /stats screen, to 11 Nov 2026. /stats counts each part of a reply separately; counted once per reply across Claude, Gemini and Codex it is 67.5 billion."></picture>
-<picture><source media="(prefers-color-scheme: dark)" srcset="assets/about-days-bb-tkd-dark.svg"><img src="assets/about-days-bb-tkd-light.svg" width="32%" alt="Three marks: 99 days of Claude Code activity since 29 May 2026 from my TV hub's log, the Boys' Brigade chevron, and a Taekwondo black-belt knot, Poom 3, drawn in gold."></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/about-days-bb-tkd-dark.svg"><img src="assets/about-days-bb-tkd-light.svg" width="32%" alt="Three marks: 99 days of Claude Code activity since May 2026 from my TV hub's log, the Boys' Brigade chevron, and a Taekwondo black-belt knot, Poom 3, drawn in gold."></picture>
 
 <sub>Token tile: /stats counts each part of a reply separately; counted once per reply across Claude, Gemini and Codex it is 67.5 B.</sub>
 
