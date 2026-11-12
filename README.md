@@ -5,9 +5,9 @@
   <img alt="Now focused on: multi-agent orchestration, applied AI, AI security, MCP agents that drive Android, Claude Code harness engineering." src="assets/typing-light.svg" width="100%">
 </picture>
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="assets/about-helmet-dark.svg"><img src="assets/about-helmet-light.svg" width="32%" alt="A gold line drawing of a crested Spartan helmet draws itself, then catches a sweep of light."></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/about-contrib-dark.svg"><img src="assets/about-contrib-light.svg" width="32%" alt="My last twenty weeks of GitHub contributions filling in week by week, with 10.3 thousand contributions in the past year underneath."></picture>
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/about-tokens-dark.svg"><img src="assets/about-tokens-light.svg" width="32%" alt="Odometer: 117 billion tokens on Claude Code as shown by its /stats screen, to 11 Nov 2026. /stats counts each part of a reply separately; counted once per reply across Claude, Gemini and Codex it is 67.5 billion."></picture>
-<picture><source media="(prefers-color-scheme: dark)" srcset="assets/about-bb-tkd-dark.svg"><img src="assets/about-bb-tkd-light.svg" width="32%" alt="A Boys' Brigade chevron and a Taekwondo black-belt knot, drawn in gold."></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/about-run-bb-tkd-dark.svg"><img src="assets/about-run-bb-tkd-light.svg" width="32%" alt="Three marks: total running distance from my Huawei Watch (number to come), the Boys' Brigade chevron, and a Taekwondo black-belt knot, Poom 3, drawn in gold."></picture>
 
 <sub>Token tile: /stats counts each part of a reply separately; counted once per reply across Claude, Gemini and Codex it is 67.5 B.</sub>
 
@@ -56,7 +56,18 @@ Seeking a 44-week internship in applied AI and AI security, from 12 April 2027.
 
 <p align="center"><sub><b>headless-kit</b> is two small Node tools that an AI agent can run with no browser, no API key and no window: <code>reddit-pull</code> returns public Reddit posts and comments as one JSON line, and <code>detached-run</code> starts a Windows process that carries on after its launcher has gone. Tested, with CI on Windows and Ubuntu. Whatever they fetch is treated as untrusted data, never as instructions to the agent.</sub></p>
 
-<p align="center"><sub>Also public: <a href="https://github.com/Sohwhat6420/sidemic"><b>Sidemic</b></a> turns an Android phone into a Windows PC's microphone, with noise removal on the phone and a Rust and Tauri desktop app. <a href="https://github.com/Sohwhat6420/designyourtv"><b>designyourtv</b></a> is a painted depth-clock lock screen, glass widgets and a remote-driven dock for Google TV. <a href="https://github.com/Sohwhat6420/designyourwindows"><b>designyourwindows</b></a> is the same depth clock and macOS-style dock on a Windows wallpaper. <a href="https://github.com/Sohwhat6420/android-film-simulations"><b>android-film-simulations</b></a> are film simulations for stock Android cameras, measured in ΔE2000 on a phone-and-monitor rig.</sub></p>
+<!-- the kit's two tools -->
+
+<!-- also public -->
+<a href="https://github.com/Sohwhat6420/designyourtv"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/repo-designyourtv-dark.svg"><img src="assets/repo-designyourtv-light.svg" width="49%" alt="designyourtv: a painted depth-clock lock screen for Google TV, the clock behind the painting's subject, with glass widgets. Public repo. Opens the repository."></picture></a>
+<a href="https://github.com/Sohwhat6420/designyourwindows"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/repo-designyourwindows-dark.svg"><img src="assets/repo-designyourwindows-light.svg" width="49%" alt="designyourwindows: the depth-clock look on a Windows desktop, with glass widgets and a dock. Public repo. Opens the repository."></picture></a>
+<a href="https://github.com/Sohwhat6420/sidemic"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/repo-sidemic-dark.svg"><img src="assets/repo-sidemic-light.svg" width="49%" alt="Sidemic: your Android phone becomes your PC's wireless microphone, with noise removed on the phone. Public repo. Opens the repository."></picture></a>
+<a href="https://github.com/Sohwhat6420/android-film-simulations"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/repo-android-film-simulations-dark.svg"><img src="assets/repo-android-film-simulations-light.svg" width="49%" alt="Film simulations: Fujifilm-style looks measured on a stock Android camera. Public repo. Opens the repository."></picture></a>
+<p align="center"><a href="https://github.com/Sohwhat6420/human-llm-council"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/repo-human-llm-council-dark.svg"><img src="assets/repo-human-llm-council-light.svg" width="49%" alt="Human LLM Council: small local models that learn how one person decides. Preview. Public repo. Opens the repository."></picture></a></p>
+
+<!-- building now -->
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/building-hmos-lite-dark.svg"><img src="assets/building-hmos-lite-light.svg" width="49%" alt="Claude for HMOS Lite: answer your coding agent from a Huawei watch. Building now, no link yet."></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/building-prompt-rambler-dark.svg"><img src="assets/building-prompt-rambler-light.svg" width="49%" alt="Prompt Rambler: talk your way into a good prompt. Building now, no link yet."></picture>
 
 <p align="center"><sub>Earlier work: I wrote and checked the 6093 Biology papers a tuition centre now uses (Alchemy Education Studio, Feb 2025 to Oct 2026), and built a harness that drafts them from a reference library and checks the format.</sub></p>
 
