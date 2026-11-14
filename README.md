@@ -1,98 +1,68 @@
 <a href="https://github.com/Sohwhat6420/Sohwhat6420/blob/live/hero.webp"><img src="https://raw.githubusercontent.com/Sohwhat6420/Sohwhat6420/live/hero.webp" width="100%" alt="ETHAN in my TV's clock type, filmed from my TV's own home screen: its 14 oil paintings rotate with the TV's real transitions, each painting's subject standing in front of the name, under changing weather (sun rays, moonlight and stars, drifting cloud, rain, snow, mist, and lightning with heavy rain). Widget cards on both sides show my GitHub month and contributions, the countdown to my 44-week internship from April 2027, credentials (Claude Certified Architect, ISC2 CC, five Anthropic Academy courses, BB Senior Cadet Lieutenant, the Founder's Award), competitions (Hack The Box 30th of 6,744, Cyber Conquest top 20, BrainHack CDDC finalist), my live Claude usage limits, my Claude Code activity heatmap and token total, and my projects."></a>
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/typing-dark.svg">
-  <img alt="Now focused on: multi-agent orchestration, applied AI, AI security, MCP agents that drive Android, Claude Code harness engineering." src="assets/typing-light.svg" width="100%">
-</picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/typing-dark.svg"><img src="assets/typing-light.svg" width="100%" alt="Now focused on: multi-agent orchestration, applied AI, AI security, MCP agents that drive Android, Claude Code harness engineering."></picture>
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="assets/about-contrib-dark.svg"><img src="assets/about-contrib-light.svg" width="32%" alt="My last twenty weeks of GitHub contributions filling in week by week, with 10.4 thousand contributions in the past year underneath."></picture>
-<picture><source media="(prefers-color-scheme: dark)" srcset="assets/about-tokens-dark.svg"><img src="assets/about-tokens-light.svg" width="32%" alt="Odometer: 117 billion tokens on Claude Code as shown by its /stats screen, to 11 Nov 2026, over 99 active days since May 2026. /stats counts each part of a reply separately; counted once per reply across Claude, Gemini and Codex it is 67.5 billion."></picture>
-<picture><source media="(prefers-color-scheme: dark)" srcset="assets/about-projects-dark.svg"><img src="assets/about-projects-light.svg" width="32%" alt="8 projects shipped: my public repositories on GitHub, one small repo glyph for each."></picture>
+<p><picture><source media="(prefers-color-scheme: dark)" srcset="assets/about-contrib-dark.svg"><img src="assets/about-contrib-light.svg" width="32%" alt="My last twenty weeks of GitHub contributions filling in week by week, with 10.4 thousand contributions in the past year underneath."></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/about-tokens-dark.svg"><img src="assets/about-tokens-light.svg" width="32%" alt="Odometer: 117 billion tokens on Claude Code as shown by its /stats screen, to 11 Nov 2026, over 99 active days since May 2026."></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/about-projects-dark.svg"><img src="assets/about-projects-light.svg" width="32%" alt="9 projects published: my public repositories on GitHub, one small repo glyph for each."></picture></p>
 
 <sub>Token tile: /stats counts each part of a reply separately; counted once per reply across Claude, Gemini and Codex it is 67.5 B.</sub>
 
-**Applied AI and agent engineering, with a security edge.** Year 2, Cybersecurity and Digital Forensics, Singapore Polytechnic.
-Seeking a 44-week internship in applied AI and AI security, from 12 April 2027.
+<p><b>SP Cybersecurity &amp; Digital Forensics | ISC2 CC | Anthropic CCA-F | Offensive Security and AI Enthusiast</b><br>Year 2, Singapore Polytechnic. Seeking a 44-week internship in applied AI and AI security, from 12 April 2027.</p>
 
-<a href="https://github.com/Sohwhat6420/Sohwhat6420/raw/main/Ethan-Soh-CV.pdf"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/cv-download-dark.svg"><img src="assets/cv-download-light.svg" width="318" alt="Download CV (PDF). Ethan Soh's full CV, 2 pages, for ATS or a closer read."></picture></a>
+<a href="https://github.com/Sohwhat6420/Sohwhat6420/raw/main/Ethan-Soh-CV.pdf"><picture><source media="(max-width: 600px) and (prefers-color-scheme: dark)" srcset="assets/cv-bar-m-dark.svg"><source media="(max-width: 600px)" srcset="assets/cv-bar-m-light.svg"><source media="(prefers-color-scheme: dark)" srcset="assets/cv-bar-dark.svg"><img src="assets/cv-bar-light.svg" width="100%" alt="Download CV (PDF). Ethan Soh's full CV, 2 pages, for ATS or a closer read."></picture></a>
 
 <sub>Short on time? <a href="https://github.com/Sohwhat6420/Sohwhat6420/raw/main/Ethan-Soh-CV-1-page.pdf">The one-page version</a>. Or find me on <a href="https://www.linkedin.com/in/ethan-soh2008">LinkedIn</a>.</sub>
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/h01-now-building-dark.svg">
-  <img alt="01 Now building. An agent's cursor taps a phone; an R4 delete is held at the gate." src="assets/h01-now-building-light.svg" width="100%">
-</picture>
+## Projects
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/card-agentroid-dark.svg">
-  <img alt="Agentroid: an MCP client calls a TypeScript MCP server, a Rust core labels each action by risk, a deny-by-default adb gate with a device allowlist passes reads and holds destructive actions for approval, then Android emulators act." src="assets/card-agentroid-light.svg" width="100%">
-</picture>
+<p align="center"><a href="https://github.com/Sohwhat6420/agentroid-mcp"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/project-agentroid-dark.svg"><img src="assets/project-agentroid-light.svg" width="98%" alt="Agentroid: an MCP agent reads an Android screen as a numbered UI tree and taps with zero model calls in the bridge; the screen guard refuses a payment tap. 44 of 44 hostile test cases held. Public preview."></picture></a></p>
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/card-unburden-root-dark.svg">
-  <img alt="Unburden Root: Claude Code sessions run as named roles through hooks, persistent memory and written rulings, then a PII guard that fails closed, then a router that sends work to model pools by cost and urgency." src="assets/card-unburden-root-light.svg" width="100%">
-</picture>
+<p align="center"><a href="https://github.com/Sohwhat6420/human-llm-council"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/project-human-llm-council-dark.svg"><img src="assets/project-human-llm-council-light.svg" width="49%" alt="Human LLM Council: a model of one person that stops what they would reject before it reaches them. Preview; not trained yet."></picture></a>
+<a href="https://github.com/Sohwhat6420/headless-kit"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/project-headless-kit-dark.svg"><img src="assets/project-headless-kit-light.svg" width="49%" alt="Headless Kit: an agent asks if it is safe to start a heavy build, runs memory-gate and gets one JSON line back. No browser, sign-in or window. Public repo."></picture></a></p>
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/h02-projects-dark.svg">
-  <img alt="02 Projects. An F1 car on a glowing racing line through an S-bend." src="assets/h02-projects-light.svg" width="100%">
-</picture>
+<p align="center"><a href="https://github.com/Sohwhat6420/designyourtv"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/project-tv-banner-dark.svg"><img src="assets/project-tv-banner-light.svg" width="49%" alt="designyourtv (DesignConfigurator): a design-first configurator for home screens and banners. Live on this page."></picture></a>
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/project-bb-portal-dark.svg"><img src="assets/project-bb-portal-light.svg" width="49%" alt="BB 5th Coy Administration Portal: awards, attendance and training-programme records for the Boys&#x27; Brigade 5th Singapore Company. A private client project."></picture></p>
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="assets/project-agentroid-dark.svg"><img src="assets/project-agentroid-light.svg" width="49%" alt="Agentroid: any MCP client drives Android emulators with no model API key of its own. Open-source release coming soon."></picture>
-<picture><source media="(prefers-color-scheme: dark)" srcset="assets/project-unburden-root-dark.svg"><img src="assets/project-unburden-root-light.svg" width="49%" alt="Unburden Root: the multi-agent harness I build in. Private; write-up coming soon."></picture>
-<picture><source media="(prefers-color-scheme: dark)" srcset="assets/project-bb-portal-dark.svg"><img src="assets/project-bb-portal-light.svg" width="49%" alt="BB Master Portal: awards, attendance and training-programme records for the Boys' Brigade 5th Singapore Company. In development."></picture>
-<picture><source media="(prefers-color-scheme: dark)" srcset="assets/project-show-me-your-agents-dark.svg"><img src="assets/project-show-me-your-agents-light.svg" width="49%" alt="Show Me Your Agents, NUS-ISS hackathon 2026: an agentic AI answer to a real business problem. Write-up coming soon."></picture>
-<a href="https://github.com/Sohwhat6420/Sohwhat6420"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/project-tv-home-screen-dark.svg"><img src="assets/project-tv-home-screen-light.svg" width="49%" alt="My TV, as a banner: the banner above, my TV's home screen rebuilt as one animated SVG. Opens this repository."></picture></a>
-<picture><source media="(prefers-color-scheme: dark)" srcset="assets/project-st2612-est-dark.svg"><img src="assets/project-st2612-est-light.svg" width="49%" alt="ST2612 EST System: an open-book exam harness with a knowledge base, adversarial audit agents and an answer pipeline. Private repo."></picture>
+<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/project-st2612-est-dark.svg"><img src="assets/project-st2612-est-light.svg" width="98%" alt="ST2612 EST System: a knowledge base from the module, an adversarial audit that strikes out a fabricated command, and the answer delivered. An exam harness for an open-book, AI-permitted test. Private repo."></picture></p>
 
-<p align="center">
-<a href="https://github.com/Sohwhat6420/headless-kit"><picture>
-  <source media="(max-width: 1011px) and (prefers-color-scheme:dark)" srcset="assets/project-headless-kit-dark-m.svg">
-  <source media="(max-width: 1011px)" srcset="assets/project-headless-kit-light-m.svg">
-  <source media="(prefers-color-scheme: dark)" srcset="assets/project-headless-kit-dark.svg">
-  <img src="assets/project-headless-kit-light.svg" width="416" alt="headless-kit: a terminal runs reddit-pull and prints one JSON line; detached-run's launcher window closes and its process keeps running with no window. Two dependency-free Node tools for agents, no browser or API key needed. MIT licence. Public repo. Opens the repository.">
-</picture></a>
-</p>
+<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/project-alchemy-dark.svg"><img src="assets/project-alchemy-light.svg" width="98%" alt="Alchemy Education Studio harness: hours of hand-copied workbooks became a gated build."></picture></p>
 
-<p align="center"><sub><b>headless-kit</b> is two small Node tools that an AI agent can run with no browser, no API key and no window: <code>reddit-pull</code> returns public Reddit posts and comments as one JSON line, and <code>detached-run</code> starts a Windows process that carries on after its launcher has gone. Tested, with CI on Windows and Ubuntu. Whatever they fetch is treated as untrusted data, never as instructions to the agent.</sub></p>
+<details><summary><b>Alchemy Education Studio harness</b>: the write-up</summary>
+<p><b>Before.</b> Building one workbook meant hours of copying questions, pasting images and formatting by hand. Human error came with it: one mistyped MCQ answer would throw off a whole answer table, and I would only find it later.</p>
+<p><b>After.</b> A harness of Python tools and Claude Code agents builds the book from a written format spec. It is gated, so a book cannot pass on an agent's say-so: a mechanical auditor cross-checks questions and answers, diagrams are lifted at print resolution with watermarks stripped, and every page is rendered and audited before the build can pass. I now only look through the final product for anything off.</p></details>
 
-<!-- the kit's two tools -->
+<details><summary><b>designyourtv</b> (DesignConfigurator), in more depth</summary><ul><li>A design-focused frontend project: painted home screens with a depth-cut clock, per-artwork type and weather, for Android TV, Windows and GitHub profile banners.</li><li>The banner at the top of this page is its own output, filmed from my TV.</li></ul></details>
 
-<!-- also public -->
-<a href="https://github.com/Sohwhat6420/designyourtv"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/repo-designyourtv-dark.svg"><img src="assets/repo-designyourtv-light.svg" width="49%" alt="designyourtv: a painted depth-clock lock screen for Google TV, the clock behind the painting's subject, with glass widgets. Public repo. Opens the repository."></picture></a>
-<a href="https://github.com/Sohwhat6420/designyourwindows"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/repo-designyourwindows-dark.svg"><img src="assets/repo-designyourwindows-light.svg" width="49%" alt="designyourwindows: the depth-clock look on a Windows desktop, with glass widgets and a dock. Public repo. Opens the repository."></picture></a>
-<a href="https://github.com/Sohwhat6420/sidemic"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/repo-sidemic-dark.svg"><img src="assets/repo-sidemic-light.svg" width="49%" alt="Sidemic: your Android phone becomes your PC's wireless microphone, with noise removed on the phone. Public repo. Opens the repository."></picture></a>
-<a href="https://github.com/Sohwhat6420/android-film-simulations"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/repo-android-film-simulations-dark.svg"><img src="assets/repo-android-film-simulations-light.svg" width="49%" alt="Film simulations: Fujifilm-style looks measured on a stock Android camera. Public repo. Opens the repository."></picture></a>
-<p align="center"><a href="https://github.com/Sohwhat6420/human-llm-council"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/repo-human-llm-council-dark.svg"><img src="assets/repo-human-llm-council-light.svg" width="49%" alt="Human LLM Council: small local models that learn how one person decides. Preview. Public repo. Opens the repository."></picture></a></p>
+<details><summary><b>Agentroid</b>, in more depth</summary><ul><li>Lets an MCP agent such as Claude Code read and operate an Android phone or emulator over adb, through 27 MCP tools. The bridge makes no model calls, so it needs no model API key.</li><li>A screen guard in a Rust daemon refuses payments, transfers, factory resets, credential entry and security-setting changes, and logs every decision to a hash-chained audit log: 44 of 44 hostile test cases refused or held, with known misses published.</li><li>Public preview: tested with Claude Code on an Android 13 emulator and one physical phone; the benchmark run is in progress.</li></ul></details>
 
-<!-- building now -->
-<picture><source media="(prefers-color-scheme: dark)" srcset="assets/building-hmos-lite-dark.svg"><img src="assets/building-hmos-lite-light.svg" width="49%" alt="Claude for HMOS Lite: answer your coding agent from a Huawei watch. Building now, no link yet."></picture>
-<picture><source media="(prefers-color-scheme: dark)" srcset="assets/building-prompt-rambler-dark.svg"><img src="assets/building-prompt-rambler-light.svg" width="49%" alt="Prompt Rambler: talk your way into a good prompt. Building now, no link yet."></picture>
+<details><summary><b>BB 5th Coy Administration Portal</b>: case study</summary><ul><li>A private client project for the Boys' Brigade 5th Singapore Company: awards and attendance records, and training-programme imports. Next.js, React and Supabase; in development since July 2026.</li></ul></details>
 
-<p align="center"><sub>Earlier work: I wrote and checked the 6093 Biology papers a tuition centre now uses (Alchemy Education Studio, Feb 2025 to Oct 2026), and built a harness that drafts them from a reference library and checks the format.</sub></p>
+<details><summary><b>ST2612 EST System</b>: what the harness scored</summary><ul><li>A study harness for an open-book, AI-permitted end-of-semester test: a knowledge base, and an agent pipeline that drafts, adversarially audits and delivers short answers. 25/25 on a graded AI-permitted quiz; 60/60 on Section B of a mock paper.</li></ul></details>
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/h03-track-record-dark.svg">
-  <img alt="03 Track record. SYN, SYN-ACK and ACK packets cross between two nodes, then a flag is captured." src="assets/h03-track-record-light.svg" width="100%">
-</picture>
+## Now building
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/track-record-dark.svg">
-  <img alt="HTB Cyber Apocalypse CTF 2026: 30th of 6,744 teams. Singapore Cyber Conquest 2026: student finalist. BrainHack CDDC 2026: finalist, Explorer." src="assets/track-record-light.svg" width="100%">
-</picture>
+<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/project-pacerouter-dark.svg"><img src="assets/project-pacerouter-light.svg" width="98%" alt="PaceRouter: three tasks arrive one at a time; planning a database migration goes to the best model, summarising 40 PDFs to the batch API at half price, renaming 200 files to a free model. A bar shows the week's usage on pace, then running hot. Illustration."></picture></p>
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/divider-weather-dark.svg">
-  <img alt="My TV's live weather layer: rain and drifting cloud, a lightning flash, then a golden-hour glow." src="assets/divider-weather-light.svg" width="100%">
-</picture>
+<details><summary><b>PaceRouter</b>, in more depth</summary><ul><li>Routes each AI task to a tier by its type and by how fast the week's usage is being spent; the same pace signal holds back parallel work and tells the orchestrator which tier to use.</li><li>Sends bulk work to a batch API at half price. In development; private first, a public repository is planned.</li></ul></details>
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-ethan--soh2008-3d444d?style=for-the-badge&labelColor=1f242b)](https://www.linkedin.com/in/ethan-soh2008)
-[![CCA-F on Credly](https://img.shields.io/badge/Credly-CCA--F-3d444d?style=for-the-badge&labelColor=1f242b)](https://www.credly.com/badges/7f7c09e9-4bbb-4cff-a49d-ee5d9e4dae23)
-[![ISC2 CC on Credly](https://img.shields.io/badge/Credly-ISC2_CC-3d444d?style=for-the-badge&labelColor=1f242b)](https://www.credly.com/badges/668ff067-c2b0-43aa-ab9d-a386ec7f1476)
+<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/project-claude-for-hmos-lite-dark.svg"><img src="assets/project-claude-for-hmos-lite-light.svg" width="49%" alt="Claude for HMOS Lite: answer your coding agent from a Huawei watch. Coming soon."></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/project-microkernel-harness-dark.svg"><img src="assets/project-microkernel-harness-light.svg" width="49%" alt="Microkernel Harness: a small kernel that routes, and narrow experts fired by events. Coming soon; no results claimed."></picture></p>
 
-<sub>The banner is my TV's home screen itself: <code>tools/capture_tv.mjs</code> opens the TV's page in a hidden headless browser with its current settings (the paintings I approved, each with its own clock face, size and depth cut-out) and films the whole rotation with the TV's own transitions. Only two things change: the clock reads ETHAN, and the widget cards carry my numbers. The extra weather (sun rays, moonlight, cloud, lightning) is <code>tools/wx-extra.js</code>, sitting where the TV's rain does, behind the cut-out. Claude usage and Claude Code tokens are read on my laptop and published to the <code>live</code> branch by <code>tools/refresh.py</code>. The paintings are oil-paint renderings made from reference images I collected; the skiing and snowboarding scenes are inspired by Werner Bronkhorst. Type: Antonio, Big Shoulders Display, Instrument Serif, Abril Fatface and Hanken Grotesk (SIL OFL 1.1). Click the banner to open it full size.</sub>
+<sub>Also building, no repository yet: <b>Prompt Rambler</b> (talk your way into a good prompt).</sub>
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/footer-concorde-dark.svg">
-  <img alt="Concorde rolls along a wet runway, rotates and climbs away." src="assets/footer-concorde-light.svg" width="100%">
-</picture>
+<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/flagship-unburden-root-dark.svg"><img src="assets/flagship-unburden-root-light.svg" width="98%" alt="Unburden Root, a multi-agent harness, in daily use and private."></picture></p>
+
+<details><summary><b>Unburden Root</b>, in more depth</summary><ul><li>The multi-agent harness I run my own projects on, with named roles, shared memory and written rules.</li><li>A PII guard fails closed (it refuses when unsure) and has its own test cases. Private. Built since July 2026.</li></ul></details>
+
+## Track record
+
+<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/track-record-dark.svg"><img src="assets/track-record-light.svg" width="98%" alt="Hack The Box Cyber Apocalypse CTF 2026: 30th of 6,744 teams. Singapore Cyber Conquest 2026: Student Finalist. DSTA BrainHack 2026, CDDC: Finalist."></picture></p>
+
+<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/honours-dark.svg"><img src="assets/honours-light.svg" width="98%" alt="Anthropic CVP: approved. Appointed Drill Instructor, 5th Company level."></picture></p>
+
+<p align="center"><a href="https://www.linkedin.com/in/ethan-soh2008"><img src="https://img.shields.io/badge/LinkedIn-ethan--soh2008-3d444d?style=for-the-badge&labelColor=1f242b" alt="LinkedIn"></a>
+<a href="https://www.credly.com/badges/7f7c09e9-4bbb-4cff-a49d-ee5d9e4dae23"><img src="https://img.shields.io/badge/Credly-CCA--F-3d444d?style=for-the-badge&labelColor=1f242b" alt="CCA-F on Credly"></a>
+<a href="https://www.credly.com/badges/668ff067-c2b0-43aa-ab9d-a386ec7f1476"><img src="https://img.shields.io/badge/Credly-ISC2_CC-3d444d?style=for-the-badge&labelColor=1f242b" alt="ISC2 CC on Credly"></a></p>
+
+<p align="center"><sub>Paintings: oil-paint renderings made from reference images I collected; the skiing and snowboarding scenes are inspired by Werner Bronkhorst. Type: Antonio, Big Shoulders Display, Instrument Serif, Abril Fatface and Hanken Grotesk (SIL OFL 1.1).</sub></p>
