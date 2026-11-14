@@ -47,7 +47,7 @@ def cap(doc, s, x, y, size, colour, anchor="start"):
 # ----------------------------------------------------------------------------------------------
 # the rotation: real frames cross-fading in a window, with a Ken Burns drift, a sheen and progress pips
 # ----------------------------------------------------------------------------------------------
-def rotator(doc, T, x, y, w, h, frames, hold=4.6, fade=0.9, r=11, captions=None, cap_at=None, pips_at=None):
+def rotator(doc, T, x, y, w, h, frames, hold=4.6, fade=0.45, r=11, captions=None, cap_at=None, pips_at=None, caption_note=None):
     p = doc.uid("ro")
     n = len(frames)
     C = n * hold
@@ -102,6 +102,8 @@ def rotator(doc, T, x, y, w, h, frames, hold=4.6, fade=0.9, r=11, captions=None,
                        % (cls, "1" if k == 0 else "0", cls, f(C, 2), cls, pct(a), pct(b), pct(b + 0.25)))
     if captions:
         cx, cy = cap_at
+        if caption_note:
+            out.append(cap(doc, caption_note, cx, cy + 18, 9.5, T["faint"])[0])
         for k, s in enumerate(captions):
             t, _ = doc.text(s, cx, cy, "mono", 11.5, T["dim"])
             cls = "%sc%d" % (p, k)
@@ -164,8 +166,8 @@ def agentroid(T):
               "over adb, built to spend as little of the agent's context as it can. The screen comes back as a numbered UI tree "
               "(text, not screenshots), or just what changed since an earlier snapshot; job_start runs several steps on the daemon with "
               "no model round trip between them; the bridge makes no model calls and needs no API key, so it reports 0 tokens "
-              "for itself. 27 MCP tools, Apache-2.0, preview release. Beside it, two real recordings cross-fade: look then four "
-              "taps on the phone's Calculator (7 × 6 = 42), and one job_start call running six steps (9 × 8 + 7 = 79). "
+              "for itself. 27 MCP tools, Apache-2.0, preview release. Beside it, two real recordings of a phone cross-fade (a short "
+              "script acted as the MCP client): look then four taps on the phone's Calculator (7 × 6 = 42), and one job_start call running six steps (9 × 8 + 7 = 79). "
               "Opens github.com/Sohwhat6420/agentroid-mcp.")
     doc.css.append(cards.frame_css())
     cards.card_frame(doc, T, W, H)
@@ -174,12 +176,12 @@ def agentroid(T):
     fw, fh = 420, 313
     fx, fy = W - 24 - fw, 30
     b.append(rotator(doc, T, fx, fy, fw, fh, ["agentroid-look.jpg", "agentroid-job.jpg"], hold=5.2,
-                     captions=["look, then 4 taps:  7 × 6 = 42", "1 job_start call, 6 steps:  9 × 8 + 7 = 79"],
+                     captions=["look, then 4 taps:  7 × 6 = 42", "1 job_start call, 6 steps:  9 × 8 + 7 = 79"], caption_note="scripted MCP client, real phone",
                      cap_at=(fx + 2, fy + fh + 26), pips_at=(fx + fw - 30, fy + fh + 20)))
     e, _ = cap(doc, "MCP server  ·  Rust daemon  ·  preview", 32, 52, 11.5, T["gold"])
     t, _ = doc.text("Agentroid", 30, 104, "serif", 54, T["text"])
-    s1, _ = doc.text("Claude Code drives an Android phone over MCP,", 32, 136, "sans", 16, T["text"])
-    s2, _ = doc.text("and spends its context on the task, not the screen.", 32, 157, "sans", 16, T["dim"])
+    s1, _ = doc.text("Lets Claude Code drive an Android phone,", 32, 136, "sans", 16, T["text"])
+    s2, _ = doc.text("and spend its context on the task, not the screen.", 32, 157, "sans", 16, T["dim"])
     b.append('<g class="rise">%s%s%s%s</g>' % (e, t, s1, s2))
     for k, (ic, head, lines) in enumerate(AGENTROID_ROWS):
         yy = 196 + k * 54
@@ -248,12 +250,12 @@ FEATURES = [
      "A small local model of one person's judgement, built to review what agents send and stop what that person would "
      "reject. Its benchmark scores the times I overrode the agent.",
      ["council-chart-{t}.jpg", "council-retest-{t}.jpg"],
-     [("375", "held-out decisions"), ("70.6%", "bar fixed pre-training"), ("3.34 GB", "peak VRAM")],
+     [("375", "held-out decisions"), ("24.5%", "override bar"), ("3.34 GB", "VRAM, test run")],
      "Open on GitHub", "Preview  ·  not yet trained",
      "Human LLM Council: a small local model of one person's judgement that reviews what AI agents send and stops what "
      "that person would reject, scored on the decisions where the person overrode the agent. The benchmark is 375 held-out "
-     "decisions; a trained model must reach 70.6% overall, a bar fixed before training; the training test peaked at 3.34 GB "
-     "of VRAM on a 6 GB laptop GPU. No model is trained on real data yet (preview). Frames: the held-out results chart, then "
+     "decisions; set before any training, a trained model must reach 70.6% overall and 24.5% on the decisions where I "
+     "overrode the agent; a training test on synthetic data peaked at 3.34 GB of VRAM on a 6 GB laptop GPU. No model is trained on real data yet (preview). Frames: the held-out results chart, then "
      "the self-consistency retest page on synthetic sample questions. Opens github.com/Sohwhat6420/human-llm-council."),
     ("headless-kit", "Node  ·  zero dependencies  ·  MIT", "headless-kit",
      "Cheap, agent-first tools that run with no browser, sign-in or window: model routing, Claude Code hooks, machine "
@@ -265,7 +267,7 @@ FEATURES = [
      "or window, with zero dependencies and CI on Windows and Ubuntu: model routing, Claude Code hooks, machine guards, "
      "research and trackers. reddit-pull and detached-run are part of it. Frames: real terminal runs of model-router, "
      "reddit-pull, memory-gate and focus-gate. Opens github.com/Sohwhat6420/headless-kit."),
-    ("designyourtv", "Google TV  ·  oil paintings  ·  MIT", "designyourtv",
+    ("designyourtv", "Google TV  ·  depth clock  ·  MIT", "designyourtv",
      "Your Google TV's idle screen becomes a painted lock screen, the clock standing behind the painting, with glass "
      "widgets that never fake a number.",
      ["dytv-tv.jpg", "dytv-tv-thunderhead.jpg", "dytv-tv-dock.jpg", "dytv-setup.jpg"],
@@ -307,7 +309,7 @@ MINIS = [
     ("sidemic", "Android  ·  MIT", "Sidemic",
      "Your Android phone becomes your PC's wireless microphone, with noise removed on the phone.",
      "thumb-sidemic.jpg", None, "https://github.com/Sohwhat6420/sidemic"),
-    ("film-simulations", "Python  ·  adb  ·  MIT", "Film simulations",
+    ("film-simulations", "Android  ·  adb  ·  MIT", "Film simulations",
      "Fujifilm-style looks measured on a stock Android camera: a rig finds the nearest setting.",
      "thumb-android-film-simulations.jpg", None, "https://github.com/Sohwhat6420/android-film-simulations"),
     ("building-now", "In progress  ·  no links yet", "Building now",
@@ -447,8 +449,8 @@ HEADERS = [
     ("01", "Featured", motifs.f1, "In a glass window beside it, an F1 car runs a glowing racing line through an S-bend, trailing light."),
     ("02", "Security", motifs.handshake,
      "In a glass window beside it, SYN, SYN-ACK and ACK packets cross between two nodes, then a flag is captured on the target."),
-    ("03", "Also built", motifs.agent_phone,
-     "In a glass window beside it, an agent's cursor taps an app on a small phone, then an R4 delete action is held at the gate."),
+    ("03", "Also built", lambda d, t, x, y, w, h: motifs.agent_phone(d, t, x, y, w, h, "delete", "asked: waits for you"),
+     "In a glass window beside it, an agent's cursor taps an app on a small phone, then a delete waits at the gate for a person."),
 ]
 
 

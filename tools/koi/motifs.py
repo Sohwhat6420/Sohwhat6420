@@ -237,7 +237,7 @@ def handshake(doc, T, x, y, w, h):
 # ----------------------------------------------------------------------------------------------
 # 4. an agent drives a phone; R4 is held at the gate
 # ----------------------------------------------------------------------------------------------
-def agent_phone(doc, T, x, y, w, h):
+def agent_phone(doc, T, x, y, w, h, action="R4 · delete", gate="held for approval"):
     p = _pfx(doc, "ap")
     cy = y + h * 0.54
     ax, gx, px = x + 34, x + w * 0.6, x + w - 58
@@ -248,7 +248,7 @@ def agent_phone(doc, T, x, y, w, h):
     # the gate
     out.append('<rect x="%s" y="%s" width="4" height="30" rx="2" fill="%s"/>' % (f(gx - 2), f(cy - 15), T["line"]))
     out.append('<rect x="%s" y="%s" width="4" height="30" rx="2" fill="%s" class="%sgf"/>' % (f(gx - 2), f(cy - 15), T["danger"], p))
-    out.append('<g class="%sgf">%s</g>' % (p, cap(doc, T, "held for approval", gx + 9, cy - 16, 10, T["danger"])))
+    out.append('<g class="%sgf">%s</g>' % (p, cap(doc, T, gate, gx + 9, cy - 16, 10, T["danger"])))
     # the phone and its six app tiles
     pw, ph = 28, min(50, h - 10)
     out.append('<rect x="%s" y="%s" width="%s" height="%s" rx="6" fill="%s" stroke="%s" stroke-width="1.3"/>'
@@ -267,7 +267,7 @@ def agent_phone(doc, T, x, y, w, h):
            % (T["text"], T["ink"]))
     cx0, cy0, cx1, cy1 = ax + 18, cy - 10, tx + 3.5, ty + 3.5
     out.append('<g transform="translate(%s %s)"><g class="%scu">%s</g></g>' % (f(cx1), f(cy1), p, cur))
-    c, cwid = pill(doc, T, "R4 · delete", 0, 0, T["danger"])
+    c, cwid = pill(doc, T, action, 0, 0, T["danger"])
     stop = gx - 6 - cwid / 2
     out.append('<g transform="translate(%s %s)"><g class="%sr4">%s</g></g>' % (f(stop), f(cy), p, c))
     _css(doc, """

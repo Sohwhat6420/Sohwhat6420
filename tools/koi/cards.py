@@ -651,14 +651,14 @@ def toolkit(T):
 def record(T):
     W, H = 880, 280
     doc = Doc(W, H, "Track record",
-              "HTB Cyber Apocalypse CTF 2026: 30th of 6,744 teams, the top 0.45 percent. Singapore Cyber Conquest 2026: "
+              "HTB Cyber Apocalypse CTF 2026: 30th of 6,744 teams (the top 0.44 percent), with all 136 flags. Singapore Cyber Conquest 2026: "
               "student finalist. BrainHack CDDC 2026: finalist, Explorer category.")
     doc.css.append(frame_css())
     card_frame(doc, T, W, H)
     b = doc.body
     e1, _ = doc.text("HTB CYBER APOCALYPSE CTF 2026", 32, 48, "cap", 12, T["gold"], tracking=0.12)
     n1, nw = doc.text("30th", 30, 124, "num", 84, T["accent"])
-    o1, _ = doc.text("of 6,744 teams", 30 + nw + 14, 122, "sans", 20, T["text"])
+    o1, _ = doc.text("of 6,744 teams  ·  all 136 flags", 30 + nw + 14, 122, "sans", 20, T["text"])
     b.append('<g class="rise">%s%s%s</g>' % (e1, n1, o1))
     bx0, bx1, by = 470, 848, 98
     frac = 30 / 6744
@@ -671,7 +671,7 @@ def record(T):
     l1, _ = doc.text("1", bx0, by + 26, "mono", 11, T["dim"])
     l2, _ = doc.text("6,744", bx1, by + 26, "mono", 11, T["dim"], anchor="end")
     b.append(l1 + l2)
-    top, _ = doc.text("30th  ·  top 0.45%", 0, -16, "mono", 12, T["accent"])
+    top, _ = doc.text("30th  ·  top 0.44%", 0, -16, "mono", 12, T["accent"])
     mk = ('<g transform="translate(%s %s)"><g class="mk"><path d="M0-9l5 9-5 9-5-9z" fill="%s"/>'
           '<circle r="5" fill="%s" class="pulse"/><g transform="translate(-4 0)">%s</g></g></g>' % (f(mx), by, T["accent"], T["accent"], top))
     b.append(mk)
