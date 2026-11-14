@@ -31,11 +31,11 @@ HACKATHONS = [
     ("2026", "NUS-ISS · NAISC", "agents, Workato"),    # Show Me Your Agents 2026; National AI Student Challenge 2026
 ]
 EVENTS = "Attended DEF CON SG · Black Hat Asia · SICW x GovWare"
-PROJECTS = [   # (icon, name, one line, tag); the README's own project cards say the same
-    ("phone", "Agentroid", "MCP agents that drive Android", "SOON"),
-    ("layers", "Unburden Root", "My multi-agent Claude Code harness", "PRIVATE"),
-    ("people", "BB Master Portal", "Records for BB 5th Singapore", "IN DEV"),
-    ("tv", "TV home screen", "This banner, from my TV's page", "LIVE"),
+PROJECTS = [   # (icon, name, one line, tag); the README's featured cards say the same (14 Nov 2026)
+    ("phone", "Agentroid", "Android for MCP agents, lean on context", "PREVIEW"),
+    ("people", "Human LLM Council", "A local model of one person's judgement", "PREVIEW"),
+    ("layers", "headless-kit", "20 tools and hooks for AI agents", "MIT"),
+    ("tv", "designyourtv", "A painted lock screen for Google TV", "MIT"),
 ]
 COMP_RINGS = [   # (icon, ring label, caption, fill 0-1) on the TV's battery rings
     ("flag", "30th", "HTB", 1 - 30 / 6744),   # of 6,744 teams: top 0.5%

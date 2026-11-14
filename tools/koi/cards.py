@@ -222,8 +222,8 @@ def hero(T):
 # ----------------------------------------------------------------------------------------------
 # typing line
 # ----------------------------------------------------------------------------------------------
-PHRASES = ["multi-agent orchestration", "applied AI", "AI security", "MCP agents that drive Android",
-           "Claude Code harness engineering"]
+PHRASES = ["agent harnesses", "MCP servers that drive Android", "context-lean tools for agents", "Claude Code hooks",
+           "AI security", "digital forensics", "CTFs"]   # about 55/45 AI to cyber, AI first (his ruling, 14 Nov 2026)
 
 
 def typing(T):
@@ -288,7 +288,7 @@ def typing(T):
     motion.append(caret.build(doc, T, cycle, caret_kt, caret_v, segs))
     motion.append("</g>")
     doc.body.append("".join(motion))
-    still_text = "multi-agent orchestration · applied AI"   # two items, so Clawd fits after it
+    still_text = "agent harnesses · AI security"   # two items, so Clawd fits after it
     st, stw = doc.text(still_text, x_text, base_y, "mono", size, T["text"])
     doc.body.append('<g class="still">%s%s</g>' % (st, caret.still(x_text + stw + 8)))
     doc.css.append(REDUCED)
