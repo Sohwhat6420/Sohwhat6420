@@ -183,12 +183,13 @@ def card_l3(ink):
     out.append(sublabel(ink, "Leadership", x + LPAD, top + 9.0))
     s, top = chip_rows(ink, x + LPAD, facts.LEADERSHIP, top + 33.7)
     out.append(s)
-    # the diploma on one line: a grey caps label, the cGPA, then the distinctions
+    # the diploma on one line: a grey caps label, then the distinctions
     lab, lw = ink.line("DIPLOMA", x + LPAD, top + 12.0, "h4", 13.44, 19.5, GREY2, ls=.06)
     out.append(lab)
     a, aw = ink.line(facts.DIPLOMA[0], x + LPAD + lw + 12, top + 9.6, "h7", 16.13, 24.2, WHITE)
     out.append(a)
-    out.append(ink.line("·  " + facts.DIPLOMA[1], x + LPAD + lw + 12 + aw + 6, top + 9.6, "h4", 16.13, 24.2, GREY2)[0])
+    if facts.DIPLOMA[1]:
+        out.append(ink.line("·  " + facts.DIPLOMA[1], x + LPAD + lw + 12 + aw + 6, top + 9.6, "h4", 16.13, 24.2, GREY2)[0])
     return "".join(out)
 
 
@@ -460,9 +461,9 @@ def build(data, still=None):
               "Ethan's TV home screen as a banner: %d oil paintings he approved for his TV rotate every %d seconds, his name "
               "ETHAN SOH standing where the TV draws its clock, behind each painting's subject. Widget cards on both sides: "
               "GitHub contributions this month, his next step (a 44-week internship from April 2027), credentials (Claude "
-              "Certified Architect, ISC2 CC, Anthropic Academy, BB Senior Cadet Lieutenant, Founder's Award, cGPA 3.77), "
+              "Certified Architect, ISC2 CC, Anthropic Academy, BB Senior Cadet Lieutenant, Founder's Award), "
               "his live Claude plan usage, his Claude Code activity heatmap and tokens, GitHub, and competitions (Hack The "
-              "Box 30th of 6,744, Cyber Conquest finalist, BrainHack CDDC finalist, PolyFinTech100 quarterfinal)."
+              "Box 30th of 6,744, Cyber Conquest finalist, BrainHack CDDC finalist)."
               % (n, STEP))
     ink = Ink(doc)
     css = doc.css

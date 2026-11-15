@@ -389,14 +389,14 @@ def helmet(doc, T, x, y, w, h):
 # ----------------------------------------------------------------------------------------------
 # 7. the token odometer
 # ----------------------------------------------------------------------------------------------
-def tokens(doc, T, x, y, w, h, total, as_of):
-    """Rolls up to the measured total, e.g. 67,529,000,000 -> 67.5 B. Without a number, the wheels just turn."""
+def tokens(doc, T, x, y, w, h, total, as_of, sub=None):
+    """Rolls up to the measured total, e.g. 50,419,188,685 -> 50.4 B. Without a number, the wheels just turn.
+    sub: the line under the odometer (e.g. '99 active days'); without it the line says 'measured, to <as_of>'."""
     p = _pfx(doc, "tk")
     size = min(h * 0.62, 78)
     num = font("num")
     lh = size * 1.06
-    # 100 B and over show as whole billions, rounded down (117,385 M -> "117"); under that, one decimal ("67.5")
-    chars = (str(int(total // 1e9)) if total >= 100e9 else "%.1f" % (total / 1e9)) if total else "88.8"
+    chars = ("%.1f" % (total / 1e9)) if total else "88.8"
     cw = num.width("0", size)
     dw = num.width(".", size)
     widths = [dw if c == "." else cw for c in chars]
@@ -429,9 +429,44 @@ def tokens(doc, T, x, y, w, h, total, as_of):
     out = ['<g filter="url(#%sg)" opacity=".45"><g clip-path="url(#%sc)" fill="%s">%s</g></g>' % (p, p, T["gold"], digits.replace(T["text"], T["gold"])),
            '<g clip-path="url(#%sc)">%s</g>' % (p, digits), sfx]
     _css(doc, "\n".join(css), p)
-    out.append(cap(doc, T, "Tokens on Claude Code", x + w / 2, y + 22, 11, T["dim"], "middle"))
-    if total:
-        out.append(cap(doc, T, "as shown on /stats, to %s" % as_of, x + w / 2, y + h - 12, 10, T["faint"], "middle"))
+    out.append(cap(doc, T, "Claude Code tokens", x + w / 2, y + 22, 11, T["dim"], "middle"))
+    if sub:
+        out.append(cap(doc, T, sub, x + w / 2, y + h - 10, 10, T["faint"], "middle"))
+    elif total:
+        out.append(cap(doc, T, "measured, to %s" % as_of, x + w / 2, y + h - 10, 10, T["faint"], "middle"))
+    return "".join(out)
+
+
+def projects(doc, T, x, y, w, h, n, sub="Projects published", title=None):
+    """One countable number with ONE label under it (his ruling, 14 Nov 2026: "9 Projects published", no second title),
+    and a mini repo glyph per project popping in beneath the number."""
+    p = _pfx(doc, "pj")
+    out = [cap(doc, T, title, x + w / 2, y + 22, 11, T["dim"], "middle")] if title else []
+    size = min(h * 0.62, 78)
+    out.append(doc.text(str(n), x + w / 2, y + h * 0.5 + size * 0.36, "num", size, T["text"], anchor="middle")[0])
+    g, gap, per = 14.0, 7.0, 10
+    shown = min(n, 20)
+    for r in range((shown + per - 1) // per):
+        cnt = min(per, shown - r * per)
+        rw = cnt * g + (cnt - 1) * gap
+        rx0 = x + (w - rw) / 2
+        for c in range(cnt):
+            i = r * per + c
+            gx, gy = rx0 + c * (g + gap), y + h * 0.5 + size * 0.36 + 16 + r * (g + 6)
+            out.append('<g class="%sd" style="animation-delay:%ss"><rect x="%s" y="%s" width="%s" height="%s" rx="3.5" fill="%s" fill-opacity=".16" stroke="%s" stroke-width="1.3"/>'
+                       '<rect x="%s" y="%s" width="%s" height="1.5" rx=".75" fill="%s"/>'
+                       '<rect x="%s" y="%s" width="%s" height="1.5" rx=".75" fill="%s" fill-opacity=".6"/>'
+                       '<rect x="%s" y="%s" width="%s" height="1.5" rx=".75" fill="%s" fill-opacity=".6"/></g>' % (
+                           p, f(0.4 + i * 0.16, 2), f(gx, 2), f(gy, 2), f(g, 1), f(g, 1), T["gold"], T["gold"],
+                           f(gx + 3, 2), f(gy + 3.2, 2), f(g - 6, 1), T["gold"],
+                           f(gx + 3, 2), f(gy + 6.4, 2), f(g - 8, 1), T["gold"],
+                           f(gx + 3, 2), f(gy + 9.6, 2), f(g - 6, 1), T["gold"]))
+    # with no title the number keeps the baseline of the neighbouring tiles' numbers; the space above stays empty
+    out.append(cap(doc, T, sub, x + w / 2, y + h - 10, 10, T["faint"] if title else T["dim"], "middle"))
+    _css(doc, """
+.$pd{animation:$pd 10s ease-out infinite backwards;transform-box:fill-box;transform-origin:center}
+@keyframes $pd{0%,3%{opacity:0;transform:scale(.4)}12%,90%{opacity:1;transform:scale(1)}97%,100%{opacity:0;transform:scale(1)}}
+""", p)
     return "".join(out)
 
 
@@ -468,5 +503,136 @@ def bb_tkd(doc, T, x, y, w, h):
     _css(doc, """
 .$pd{stroke-dasharray:1;animation:$pd 10s cubic-bezier(.6,0,.3,1) infinite}
 @keyframes $pd{0%{stroke-dashoffset:1;opacity:1}22%{stroke-dashoffset:0}90%{stroke-dashoffset:0;opacity:1}97%,100%{stroke-dashoffset:0;opacity:0}}
+""", p)
+    return "".join(out)
+
+
+# ----------------------------------------------------------------------------------------------
+# 9. the steps + contributions split tile (replaces the helmet, his pick "Both in one split tile", 11 Nov 2026)
+# ----------------------------------------------------------------------------------------------
+def steps_commits(doc, T, x, y, w, h, cal, steps_label="5M+"):
+    """Left half: a ring that draws round once, with his Huawei-watch step total. Right half: the last 12 weeks of his
+    GitHub contributions as a small grid that fills in week by week, with the year's total underneath."""
+    p = _pfx(doc, "sc")
+    half = w / 2
+    out = []
+    # --- left: the ring
+    cx, cy, r = x + half / 2, y + h * 0.5 + 2, min(half * 0.36, h * 0.27)
+    out.append(cap(doc, T, "On my watch", cx, y + 22, 11, T["dim"], "middle"))
+    out.append('<circle cx="%s" cy="%s" r="%s" fill="none" stroke="%s" stroke-opacity=".16" stroke-width="6"/>' % (f(cx, 2), f(cy, 2), f(r, 2), T["gold"]))
+    out.append('<circle class="%sr" cx="%s" cy="%s" r="%s" pathLength="1" fill="none" stroke="%s" stroke-width="6" stroke-linecap="round" '
+               'transform="rotate(-90 %s %s)"/>' % (p, f(cx, 2), f(cy, 2), f(r, 2), T["gold"], f(cx, 2), f(cy, 2)))
+    size = r * 0.9
+    out.append(doc.text(steps_label, cx, cy + size * 0.18, "num", size, T["text"], anchor="middle", cls=p + "n")[0])
+    out.append(cap(doc, T, "steps", cx, cy + r * 0.62, 9, T["dim"], "middle"))
+    out.append(cap(doc, T, "Huawei Watch", cx, y + h - 10, 10, T["faint"], "middle"))
+    # --- the divider
+    dx = x + half
+    out.append('<path d="M%s %s V%s" stroke="%s" stroke-opacity=".28" stroke-width="1"/>' % (f(dx, 2), f(y + 34, 2), f(y + h - 22, 2), T["dim"]))
+    # --- right: the contribution grid, last 12 weeks, Sunday on top
+    weeks = cal["weeks"][-12:]
+    flat = [v for wk in weeks for v in wk]
+    top = max(flat) or 1
+    cell, gap = 8.2, 2.4
+    gw = len(weeks) * (cell + gap) - gap
+    gh = 7 * (cell + gap) - gap
+    gx = x + half + (half - gw) / 2
+    gy = y + 38
+    out.append(cap(doc, T, "GitHub", x + half + half / 2, y + 22, 11, T["dim"], "middle"))
+    css_delays = []
+    for i, wk in enumerate(weeks):
+        out.append('<g class="%sg" style="animation-delay:%ss">' % (p, f(0.9 + i * 0.12, 2)))
+        for j, v in enumerate(wk):
+            lvl = 0 if v == 0 else (1 if v <= top * 0.12 else 2 if v <= top * 0.35 else 3 if v <= top * 0.7 else 4)
+            op = (0.10, 0.30, 0.50, 0.75, 1.0)[lvl]
+            col = T["faint"] if lvl == 0 else T["gold"]
+            out.append('<rect x="%s" y="%s" width="%s" height="%s" rx="2" fill="%s" opacity="%s"/>'
+                       % (f(gx + i * (cell + gap), 2), f(gy + j * (cell + gap), 2), f(cell, 1), f(cell, 1), col, f(op, 2)))
+        out.append('</g>')
+    total = cal["total"]
+    label = ("%.1fK" % (total / 1000)) if total >= 1000 else str(total)
+    out.append(doc.text(label, x + half + half / 2, gy + gh + 30, "num", 22, T["text"], anchor="middle")[0])
+    out.append(cap(doc, T, "in the past year", x + half + half / 2, y + h - 10, 9, T["faint"], "middle"))
+    _css(doc, """
+.$pr{stroke-dasharray:1;animation:$pr 10s cubic-bezier(.6,0,.3,1) infinite}
+@keyframes $pr{0%{stroke-dashoffset:1;opacity:1}30%{stroke-dashoffset:0}90%{stroke-dashoffset:0;opacity:1}97%,100%{stroke-dashoffset:0;opacity:0}}
+.$pn{animation:$pn 10s ease-out infinite}
+@keyframes $pn{0%,12%{opacity:0}34%,90%{opacity:1}97%,100%{opacity:0}}
+.$pg{animation:$pg 10s ease-out infinite backwards}
+@keyframes $pg{0%,8%{opacity:0}20%,90%{opacity:1}97%,100%{opacity:0}}
+""", p)
+    return "".join(out)
+
+
+# ----------------------------------------------------------------------------------------------
+# 10. the README's first and third tiles after the 8 Nov / 12 Nov rulings (no steps ring)
+# ----------------------------------------------------------------------------------------------
+def contributions(doc, T, x, y, w, h, cal):
+    """GitHub contributions only: the last 20 weeks as a grid that fills in week by week, the past-year total under it."""
+    p = _pfx(doc, "ct")
+    weeks = cal["weeks"][-20:]
+    top = max(v for wk in weeks for v in wk) or 1
+    cell, gap = 8.0, 2.4
+    gw = len(weeks) * (cell + gap) - gap
+    gh = 7 * (cell + gap) - gap
+    gx, gy = x + (w - gw) / 2, y + 34
+    out = [cap(doc, T, "GitHub contributions", x + w / 2, y + 22, 11, T["dim"], "middle")]
+    for i, wk in enumerate(weeks):
+        out.append('<g class="%sg" style="animation-delay:%ss">' % (p, f(0.5 + i * 0.07, 2)))
+        for j, v in enumerate(wk):
+            lvl = 0 if v == 0 else (1 if v <= top * 0.12 else 2 if v <= top * 0.35 else 3 if v <= top * 0.7 else 4)
+            col = T["faint"] if lvl == 0 else T["gold"]
+            out.append('<rect x="%s" y="%s" width="%s" height="%s" rx="2" fill="%s" opacity="%s"/>' % (
+                f(gx + i * (cell + gap), 2), f(gy + j * (cell + gap), 2), f(cell, 1), f(cell, 1), col, (0.10, 0.30, 0.50, 0.75, 1.0)[lvl]))
+        out.append('</g>')
+    total = cal["total"]
+    label = ("%.1fK" % (total / 1000)) if total >= 1000 else str(total)
+    out.append(doc.text(label, x + w / 2, gy + gh + 30, "num", 24, T["text"], anchor="middle")[0])
+    out.append(cap(doc, T, "in the past year", x + w / 2, y + h - 9, 9, T["faint"], "middle"))
+    _css(doc, """
+.$pg{animation:$pg 10s ease-out infinite backwards}
+@keyframes $pg{0%,6%{opacity:0}20%,90%{opacity:1}97%,100%{opacity:0}}
+""", p)
+    return "".join(out)
+
+
+def run_bb_tkd(doc, T, x, y, w, h, stat=None):
+    """Three-way split: total running distance (his Huawei Watch; a placeholder until the number is in), the BB chevron
+    and the Taekwondo black-belt knot (Poom 3), drawn in gold."""
+    p = _pfx(doc, "rt")
+    col = w / 3.0
+    c1, c2, c3 = x + col * 0.5, x + col * 1.5, x + col * 2.5
+    s = min(col, h) / 100 * 0.78
+    cy = y + h * 0.46
+    out = []
+    # 1: distance
+    num, unit, l1, l2 = stat
+    out.append(doc.text(num, c1, cy + 8, "num", 34, T["text"], anchor="middle")[0])
+    out.append(cap(doc, T, unit, c1, cy + 26, 11, T["gold"], "middle"))
+    # 2: BB chevron, two nested Vs
+    chev = ["M%s %sL%s %sL%s %s" % (f(c2 - 28 * s), f(cy - 20 * s + o * s), f(c2), f(cy + 6 * s + o * s), f(c2 + 28 * s), f(cy - 20 * s + o * s)) for o in (0, 14)]
+    # 3: knot
+    k = lambda px, py: (f(c3 + px * s), f(cy + py * s))
+    knot = [
+        "M%s %sH%s M%s %sH%s" % (k(-44, -9)[0], k(-44, -9)[1], k(-9, -9)[0], k(-44, 1)[0], k(-44, 1)[1], k(-9, 1)[0]),
+        "M%s %sH%s M%s %sH%s" % (k(9, -9)[0], k(9, -9)[1], k(44, -9)[0], k(9, 1)[0], k(9, 1)[1], k(44, 1)[0]),
+        "M%s %sL%s %sL%s %sL%s %sZ" % (k(-9, -12) + k(9, -12) + k(10, 4) + k(-10, 4)),
+        "M%s %sL%s %s" % (k(-9, -12) + k(10, 4)),
+        "M%s %sL%s %sL%s %sL%s %s" % (k(-6, 4) + k(-20, 34) + k(-12, 37) + k(-1, 4)),
+        "M%s %sL%s %sL%s %sL%s %s" % (k(6, 4) + k(22, 32) + k(30, 27) + k(1, 4)),
+    ]
+    g = "".join('<path d="%s" pathLength="1" class="%sd" style="animation-delay:%ss"/>' % (d, p, f(0.05 * i * 10, 2)) for i, d in enumerate(chev + knot))
+    gb = _blur(doc, p + "g", 2.4)
+    out.append('<g fill="none" stroke="%s" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" opacity=".4" filter="url(#%s)">%s</g>' % (T["gold"], gb, g))
+    out.append('<g fill="none" stroke="%s" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">%s</g>' % (T["gold"], g))
+    for cx_, a, b in ((c1, l1, l2), (c2, "Boys' Brigade", ""), (c3, "Taekwondo", "Poom 3")):
+        out.append(cap(doc, T, a, cx_, y + h - 22, 9.5, T["dim"], "middle"))
+        if b:
+            out.append(cap(doc, T, b, cx_, y + h - 9, 8.5, T["faint"], "middle"))
+    for dx in (x + col, x + 2 * col):
+        out.append('<path d="M%s %sV%s" stroke="%s" stroke-opacity=".22" stroke-width="1"/>' % (f(dx, 2), f(y + 26, 2), f(y + h - 30, 2), T["dim"]))
+    _css(doc, """
+.$pd{stroke-dasharray:1;animation:$pd 10s cubic-bezier(.6,0,.3,1) infinite backwards}
+@keyframes $pd{0%{stroke-dashoffset:1;opacity:0}1%{opacity:1}22%{stroke-dashoffset:0}90%{stroke-dashoffset:0;opacity:1}97%,100%{stroke-dashoffset:0;opacity:0}}
 """, p)
     return "".join(out)

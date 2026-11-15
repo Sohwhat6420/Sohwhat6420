@@ -20,14 +20,13 @@ LEADERSHIP = [
     ("BB", "Founder's Award", "2024"),                  # the highest award in the BB Senior Programme, Jun 2024
     ("SEED", "Senior Exco", "CS club"),                 # SEED (Computer Science Club), Senior Executive Committee, 2026
 ]
-DIPLOMA = ("cGPA 3.77", "2 Distinctions")              # Digital Forensics and Investigation; Personal Branding
+DIPLOMA = ("2 Distinctions", "")              # Digital Forensics and Investigation; Personal Branding
 CTF = [
     ("30th", "Hack The Box", "of 6,744"),              # Cyber Apocalypse CTF 2026, top 0.5%
     ("T20", "Cyber Conquest", "finalist"),             # Singapore Cyber Conquest 2026, student finalist (top 20)
     ("FINAL", "BrainHack CDDC", "finalist"),           # DSTA BrainHack 2026, CDDC, Explorer
 ]
 HACKATHONS = [
-    ("QF", "PolyFinTech100", "quarterfinal"),          # API Hackathon 2026, ESG & AI track
     ("2026", "NUS-ISS · NAISC", "agents, Workato"),    # Show Me Your Agents 2026; National AI Student Challenge 2026
 ]
 EVENTS = "Attended DEF CON SG · Black Hat Asia · SICW x GovWare"
@@ -41,11 +40,9 @@ COMP_RINGS = [   # (icon, ring label, caption, fill 0-1) on the TV's battery rin
     ("flag", "30th", "HTB", 1 - 30 / 6744),   # of 6,744 teams: top 0.5%
     ("trophy", "T20", "Conquest", 1.0),
     ("target", "Final", "BrainHack", 1.0),
-    ("bulb", "QF", "FinTech100", 1.0),
 ]
 RINGS = [   # (icon, label, fill 0-1)
     ("flag", "0.5%", 0.995),       # HTB: top 0.5%
-    ("cap", "3.77", 3.77 / 4),     # cGPA
     ("book", "5", 1.0),            # Anthropic Academy courses
     ("trophy", "136", 1.0),        # all 136 flags at Cyber Apocalypse
 ]
@@ -66,7 +63,6 @@ def profile(gh, act):
         "leadership": [
             {"icon": "chevron", "main": "BB Senior Cadet Lt", "detail": "", "tag": ""},
             {"icon": "medal", "main": "Founder's Award 2024", "detail": "", "tag": ""},
-            {"icon": "cap", "main": "cGPA 3.77", "detail": "", "tag": ""},
         ],
         "rings": [{"icon": i, "label": l, "caption": c, "fill": f} for i, l, c, f in COMP_RINGS],
         "comp_foot": "<b>Hack The Box</b> Cyber Apocalypse: <b>30th of 6,744</b> · 136/136 flags",

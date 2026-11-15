@@ -828,28 +828,80 @@ def token_total():
     return int(src["total"]), "%d %s" % (made.day, made.strftime("%b %Y"))
 
 
+def _load_cal():
+    import json
+    with open(os.path.join(os.path.dirname(OUT), "data", "github-cal.json"), encoding="utf-8") as fh:
+        return json.load(fh)
+
+
+CAL = None
+ACT = None
+OWNER = "Sohwhat6420"
+PROFILE_REPO = "Sohwhat6420"
+# The odometer is typed from Claude Code's own /stats screen (117 B on 11 Nov 2026), not from the hub's total
+# (55 B, a different measure): so it is NOT refreshed automatically. Update it by hand when he reads /stats.
+STATS_TOKENS = (117_000_000_000, "11 Nov 2026")
+
+
+def project_count():
+    """Projects shipped = his public, non-fork, non-archived GitHub repositories, excluding the profile repository itself.
+    Counted with the GitHub API (`gh api`, public data), so the weekly refresh can keep it current."""
+    import json
+    import subprocess
+    r = subprocess.run(["gh", "api", "users/%s/repos?per_page=100&type=owner" % OWNER], capture_output=True, text=True,
+                       creationflags=0x08000000, timeout=60)
+    if r.returncode:
+        raise RuntimeError("gh api repos failed: " + (r.stdout + r.stderr)[-200:])
+    repos = [x for x in json.loads(r.stdout) if not x["fork"] and not x["archived"] and not x["private"] and x["name"].lower() != PROFILE_REPO.lower()]
+    return len(repos)
+
+
+def active_days():
+    """Days with Claude Code activity, from the hub's /api/activity copy (the same log the token odometer reads).
+    Returns (days, first_day, as_of) as strings, e.g. ('99', 'since 29 May 2026', 'to 12 Nov 2026')."""
+    import datetime as dt
+    import json
+    import urllib.request
+    try:
+        with urllib.request.urlopen("http://127.0.0.1:8790/api/activity", timeout=5) as r:
+            src = json.load(r)
+    except Exception:
+        with open(os.path.join(os.path.dirname(OUT), ".live", "activity.json"), encoding="utf-8") as fh:
+            src = json.load(fh)
+    days = sorted(dt.date.fromisoformat(k) for k, v in src["replies"].items() if v > 0)
+    made = dt.datetime.fromisoformat(src["made"].replace("Z", "+00:00")).astimezone(dt.timezone(dt.timedelta(hours=8)))
+    fd = days[0]
+    return (str(len(days)), "days", "Claude Code", "since %s %d" % (fd.strftime("%b"), fd.year))
+
+
 def main():
+    global CAL
+    CAL = _load_cal()
+    global ACT
+    ACT = active_days()
+    print('active days:', ACT)
     """The cards under the README's banner, all ghost glass in the TV widgets' tokens: the typed focus line, three
     glass tiles (helmet, token odometer, BB and Taekwondo), three section headings each with its animated motif, the
     Agentroid and Unburden Root diagrams, the track record, one card per project, the weather divider and the Concorde
     footer. The koi pond hero, toolkit and koi footer are retired."""
-    total, as_of = token_total()
-    print("tokens: %s (%s)" % (total, as_of or "no reading: the odometer turns with no number"))
-    tok_desc = ("Odometer digits roll up to %d billion: tokens on Claude Code, as shown on its /stats screen, to %s. /stats counts each "
-                "part of a reply separately; counted once per reply across Claude, Gemini and Codex it is 67.5 billion."
-                % (int(total // 1e9), as_of) if total else "Odometer digits turning: my Claude Code token count.")
+    total, as_of = STATS_TOKENS
+    nproj = project_count()
+    tok_sub = "%s active days" % ACT[0]
+    print("tokens: %s (%s), %s, projects: %d" % (total, as_of, tok_sub, nproj))
+    tok_desc = ("Odometer digits roll up to %d billion: my Claude Code tokens as shown by its /stats screen, to %s, over %s active days since %s."
+                % (round(total / 1e9), as_of, ACT[0], ACT[3].replace("since ", "")))
     report = []
     for name, T in THEMES.items():
         random.seed(1)
         report.append(write("typing", name, typing(T)))
-        report.append(write("about-helmet", name, tile(T, "helmet", "Spartan",
-                            "An original gold line drawing of a crested Greek helmet draws itself, then a light sweeps across it.",
-                            motifs.helmet)))
-        report.append(write("about-tokens", name, tile(T, "tokens", "Tokens on Claude Code", tok_desc,
-                            lambda d, t, x, y, w, h: motifs.tokens(d, t, x, y, w, h, total, as_of))))
-        report.append(write("about-bb-tkd", name, tile(T, "bb", "Boys' Brigade and Taekwondo",
-                            "A Boys' Brigade chevron and a Taekwondo black-belt knot draw themselves in gold lines.",
-                            motifs.bb_tkd)))
+        report.append(write("about-contrib", name, tile(T, "contrib", "GitHub contributions",
+                            "My last twenty weeks of GitHub contributions filling in week by week, with my past-year total underneath.",
+                            lambda d, t, x, y, w, h: motifs.contributions(d, t, x, y, w, h, CAL))))
+        report.append(write("about-tokens", name, tile(T, "tokens", "Claude Code tokens", tok_desc,
+                            lambda d, t, x, y, w, h: motifs.tokens(d, t, x, y, w, h, total, as_of, tok_sub))))
+        report.append(write("about-projects", name, tile(T, "projects", "Projects published",
+                            "%d projects published: my public repositories on GitHub, one small repo glyph for each." % nproj,
+                            lambda d, t, x, y, w, h: motifs.projects(d, t, x, y, w, h, nproj))))
         for idx, title, motif, desc in HEADERS:
             report.append(write("h%s-%s" % (idx, title.lower().replace(" ", "-")), name, header(T, idx, title, motif, desc)))
         report.append(write("card-agentroid", name, agentroid(T)))
