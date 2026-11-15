@@ -61,6 +61,10 @@
 
 <p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/honours-dark.svg"><img src="assets/honours-light.svg" width="98%" alt="Anthropic CVP: approved. Appointed Drill Instructor, 5th Company level."></picture></p>
 
+<p align="center"><b>YCEP Bootcamp 2026: Student Helper</b>. 3-day Youth Cyber Exploration Programme bootcamp at SP, with the Cyber Security Agency of Singapore.<br>
+<b>Taekwondo 1st Dan Black Belt</b>. Graded 1st Dan (black belt) by the Singapore Taekwondo Federation's Board of Examiners on 14 Jan 2024.<br>
+<b>Taekwondo 3rd Poom</b>. Graded 3rd Poom by the Singapore Taekwondo Federation's Board of Examiners on 17 Jul 2022.</p>
+
 <p align="center"><a href="https://www.linkedin.com/in/ethan-soh2008"><img src="https://img.shields.io/badge/LinkedIn-ethan--soh2008-3d444d?style=for-the-badge&labelColor=1f242b" alt="LinkedIn"></a>
 <a href="https://www.credly.com/badges/7f7c09e9-4bbb-4cff-a49d-ee5d9e4dae23"><img src="https://img.shields.io/badge/Credly-CCA--F-3d444d?style=for-the-badge&labelColor=1f242b" alt="CCA-F on Credly"></a>
 <a href="https://www.credly.com/badges/668ff067-c2b0-43aa-ab9d-a386ec7f1476"><img src="https://img.shields.io/badge/Credly-ISC2_CC-3d444d?style=for-the-badge&labelColor=1f242b" alt="ISC2 CC on Credly"></a></p>
