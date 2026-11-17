@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="830" height="134" viewBox="0 0 830 134" role="img" aria-labelledby="t d">
-<title id="t">Download CV (PDF)</title><desc id="d">Button. Download Ethan Soh's full CV as a PDF, 2 pages.</desc><style><![CDATA[
+<title id="t">Download CV (PDF)</title><desc id="d">Button. Download Ethan Soh's CV as a PDF, 1 page.</desc><style><![CDATA[
 text{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
 .arrow{animation:nudge 2.4s ease-in-out infinite}
 .sweep{animation:sweep 6.5s cubic-bezier(.45,0,.25,1) infinite}
@@ -28,7 +28,7 @@ text{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,san
 <circle class="orbit" cx="58" cy="70.0" r="22" fill="none" stroke="url(#ring)" stroke-width="1.8"/>
 <g class="arrow" fill="none" stroke="#8a6a12" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M58 60.0v14M52 68.0l6 6 6-6"/><path d="M51 79.0h14"/></g>
 <text x="100" y="67.0" font-size="19" font-weight="700" fill="#1f2328">Download my CV</text>
-<text x="100" y="88.0" font-size="13.5" fill="#59636e">Full version, 2 pages, for ATS or a closer read</text>
+<text x="100" y="88.0" font-size="13.5" fill="#59636e">One page: education, certifications, projects, leadership and competitions</text>
 <rect x="718" y="56.0" width="80" height="28" rx="14" fill="#ffffff" fill-opacity=".72" stroke="#8a6a12" stroke-opacity=".38"/>
 <text x="758" y="75.0" font-size="12.5" font-weight="700" fill="#8a6a12" text-anchor="middle" letter-spacing="1.4">PDF</text>
 </svg>

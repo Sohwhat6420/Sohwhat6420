@@ -10,9 +10,9 @@
 
 <p><b>SP Cybersecurity &amp; Digital Forensics | ISC2 CC | Anthropic CCA-F | Offensive Security and AI Enthusiast</b><br>Year 2, Singapore Polytechnic. Seeking a 44-week internship in applied AI and AI security, from 12 April 2027.</p>
 
-<a href="https://github.com/Sohwhat6420/Sohwhat6420/raw/main/Ethan-Soh-CV.pdf"><picture><source media="(max-width: 600px) and (prefers-color-scheme: dark)" srcset="assets/cv-bar-m-dark.svg"><source media="(max-width: 600px)" srcset="assets/cv-bar-m-light.svg"><source media="(prefers-color-scheme: dark)" srcset="assets/cv-bar-dark.svg"><img src="assets/cv-bar-light.svg" width="100%" alt="Download CV (PDF). Ethan Soh's full CV, 2 pages, for ATS or a closer read."></picture></a>
+<a href="https://github.com/Sohwhat6420/Sohwhat6420/raw/main/Ethan-Soh-CV.pdf"><picture><source media="(max-width: 600px) and (prefers-color-scheme: dark)" srcset="assets/cv-bar-m-dark.svg"><source media="(max-width: 600px)" srcset="assets/cv-bar-m-light.svg"><source media="(prefers-color-scheme: dark)" srcset="assets/cv-bar-dark.svg"><img src="assets/cv-bar-light.svg" width="100%" alt="Download CV (PDF). Ethan Soh's CV, 1 page."></picture></a>
 
-<sub>Short on time? <a href="https://github.com/Sohwhat6420/Sohwhat6420/raw/main/Ethan-Soh-CV-1-page.pdf">The one-page version</a>. Or find me on <a href="https://www.linkedin.com/in/ethan-soh2008">LinkedIn</a>.</sub>
+<sub>Find me on <a href="https://www.linkedin.com/in/ethan-soh2008">LinkedIn</a>.</sub>
 
 ## Projects
 
