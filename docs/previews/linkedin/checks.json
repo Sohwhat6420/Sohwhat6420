@@ -1,0 +1,118 @@
+{
+  "base": "95107b4",
+  "renderer": "Playwright bundled Chromium; local GitHub-style README excerpt, from focus line through Projects heading; animations frozen in the preview fixture only",
+  "results": [
+    {
+      "filename": "before-dark-desktop.png",
+      "viewport": {
+        "width": 1280,
+        "height": 1000
+      },
+      "theme": "dark",
+      "checks": {
+        "overflow": false,
+        "brokenImages": 0,
+        "linkedIn": 1,
+        "selectedCard": null
+      }
+    },
+    {
+      "filename": "before-dark-phone.png",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "theme": "dark",
+      "checks": {
+        "overflow": false,
+        "brokenImages": 0,
+        "linkedIn": 1,
+        "selectedCard": null
+      }
+    },
+    {
+      "filename": "before-light-desktop.png",
+      "viewport": {
+        "width": 1280,
+        "height": 1000
+      },
+      "theme": "light",
+      "checks": {
+        "overflow": false,
+        "brokenImages": 0,
+        "linkedIn": 1,
+        "selectedCard": null
+      }
+    },
+    {
+      "filename": "before-light-phone.png",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "theme": "light",
+      "checks": {
+        "overflow": false,
+        "brokenImages": 0,
+        "linkedIn": 1,
+        "selectedCard": null
+      }
+    },
+    {
+      "filename": "after-dark-desktop.png",
+      "viewport": {
+        "width": 1280,
+        "height": 1000
+      },
+      "theme": "dark",
+      "checks": {
+        "overflow": false,
+        "brokenImages": 0,
+        "linkedIn": 1,
+        "selectedCard": 830
+      }
+    },
+    {
+      "filename": "after-dark-phone.png",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "theme": "dark",
+      "checks": {
+        "overflow": false,
+        "brokenImages": 0,
+        "linkedIn": 1,
+        "selectedCard": 420
+      }
+    },
+    {
+      "filename": "after-light-desktop.png",
+      "viewport": {
+        "width": 1280,
+        "height": 1000
+      },
+      "theme": "light",
+      "checks": {
+        "overflow": false,
+        "brokenImages": 0,
+        "linkedIn": 1,
+        "selectedCard": 830
+      }
+    },
+    {
+      "filename": "after-light-phone.png",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "theme": "light",
+      "checks": {
+        "overflow": false,
+        "brokenImages": 0,
+        "linkedIn": 1,
+        "selectedCard": 420
+      }
+    }
+  ]
+}

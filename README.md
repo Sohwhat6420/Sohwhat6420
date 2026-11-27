@@ -12,7 +12,7 @@
 
 <a href="https://github.com/Sohwhat6420/Sohwhat6420/raw/main/Ethan-Soh-CV.pdf"><picture><source media="(max-width: 600px) and (prefers-color-scheme: dark)" srcset="assets/cv-bar-m-dark.svg"><source media="(max-width: 600px)" srcset="assets/cv-bar-m-light.svg"><source media="(prefers-color-scheme: dark)" srcset="assets/cv-bar-dark.svg"><img src="assets/cv-bar-light.svg" width="100%" alt="Download CV (PDF). Ethan Soh's CV, 1 page."></picture></a>
 
-<sub>Find me on <a href="https://www.linkedin.com/in/ethan-soh2008">LinkedIn</a>.</sub>
+<a href="https://www.linkedin.com/in/ethan-soh2008"><picture><source media="(max-width: 600px) and (prefers-color-scheme: dark)" srcset="assets/contact-linkedin-m-dark.svg"><source media="(max-width: 600px)" srcset="assets/contact-linkedin-m-light.svg"><source media="(prefers-color-scheme: dark)" srcset="assets/contact-linkedin-dark.svg"><img src="assets/contact-linkedin-light.svg" width="100%" alt="Find me on LinkedIn."></picture></a>
 
 ## Projects
 
