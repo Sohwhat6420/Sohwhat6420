@@ -838,9 +838,8 @@ CAL = None
 ACT = None
 OWNER = "Sohwhat6420"
 PROFILE_REPO = "Sohwhat6420"
-# The odometer is typed from Claude Code's own /stats screen (117 B on 11 Nov 2026), not from the hub's total
-# (55 B, a different measure): so it is NOT refreshed automatically. Update it by hand when he reads /stats.
-STATS_TOKENS = (117_000_000_000, "11 Nov 2026")
+# Fallback /stats figure if tools/measure_tokens.mjs is not run; weekly_refresh.py refreshes this from local logs.
+STATS_TOKENS = (170_210_948_134, "27 Nov 2026")
 
 
 def project_count():

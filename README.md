@@ -3,10 +3,10 @@
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/typing-dark.svg"><img src="assets/typing-light.svg" width="100%" alt="Now focused on: multi-agent orchestration, applied AI, AI security, MCP agents that drive Android, Claude Code harness engineering."></picture>
 
 <p><picture><source media="(prefers-color-scheme: dark)" srcset="assets/about-contrib-dark.svg"><img src="assets/about-contrib-light.svg" width="32%" alt="My last twenty weeks of GitHub contributions filling in week by week, with 13.2 thousand contributions in the past year underneath."></picture>
-<picture><source media="(prefers-color-scheme: dark)" srcset="assets/about-tokens-dark.svg"><img src="assets/about-tokens-light.svg" width="32%" alt="Odometer: 117 billion tokens on Claude Code as shown by its /stats screen, to 11 Nov 2026, over 101 active days since May 2026."></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/about-tokens-dark.svg"><img src="assets/about-tokens-light.svg" width="32%" alt="Odometer: 170 billion tokens on Claude Code as shown by its /stats screen, to 27 Nov 2026, over 123 active days since May 2026."></picture>
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/about-projects-dark.svg"><img src="assets/about-projects-light.svg" width="32%" alt="9 projects published: my public repositories on GitHub, one small repo glyph for each."></picture></p>
 
-<sub>Token tile: /stats counts each part of a reply separately; counted once per reply across Claude, Gemini and Codex it is 67.5 B.</sub>
+<sub>Token tile: /stats counts each part of a reply separately; counted once per reply across Claude, Gemini and Codex it is 87.6 B.</sub>
 
 <p><b>SP Cybersecurity &amp; Digital Forensics | ISC2 CC | Anthropic CCA-F | Offensive Security and AI Enthusiast</b><br>Year 2, Singapore Polytechnic. Seeking a 44-week internship in applied AI and AI security, from 12 April 2027.</p>
 
